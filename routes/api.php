@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FnbController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Fnb
+Route::get('list-fnb', [FnbController::class, 'listFnb']);
+Route::get('detail-fnb/{id}', [FnbController::class, 'detailFnb']);
+Route::post('create-fnb', [FnbController::class, 'createFnb']);
+Route::post('update-fnb/{id}', [FnbController::class, 'updateFnb']);
+Route::delete('delete-fnb/{id}', [FnbController::class, 'deleteFnb']);
