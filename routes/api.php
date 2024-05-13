@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HiburanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Hiburan
+Route::get('list-hiburan', [HiburanController::class, 'listHiburan']);
+Route::get('detail-hiburan/{id}', [HiburanController::class, 'detailHiburan']);
+Route::post('create-hiburan', [HiburanController::class, 'createHiburan']);
+Route::post('update-hiburan/{id}', [HiburanController::class, 'updateHiburan']);
+Route::delete('delete-hiburan/{id}', [HiburanController::class, 'deleteHiburan']);
