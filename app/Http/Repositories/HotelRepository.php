@@ -16,7 +16,7 @@ class HotelRepository
     public function listDataHotel()
     {
         try {
-            $dataHotel = Hotel::get();
+            $dataHotel = $this->hotelModel->get();
             return [
                 "statusCode" => 200,
                 "data" => $dataHotel,
@@ -34,11 +34,11 @@ class HotelRepository
     public function detailDataHotel($id)
     {
         try {
-            $dataHotel = Hotel::find($id);
+            $dataHotel = $this->hotelModel->find($id);
             return [
                 "statusCode" => 200,
                 "data" => $dataHotel,
-                "message" => 'get data hotel success'
+                "message" => 'get detail data hotel success'
             ];
         } catch (\Exception $e) {
             return [
@@ -49,12 +49,72 @@ class HotelRepository
         }
     }
 
-    public function inputDataHotel(Request $request)
-    {}
+    public function inputDataHotel($dataRequest)
+    {
+        try {
+            $result = $this->hotelModel->insert($dataRequest);
+            return [
+                "statusCode" => 201,
+                "message" => 'input data hotel success'
+            ];
+        } catch (\Exception $e) {
+            return [
+                "statusCode" => 401,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
 
-    public function updateDataHotel(Request $request)
-    {}
+    public function updateDataHotel($dataRequest, $id)
+    {
+        try {
+            $dataHotel = $this->hotelModel->find($id);
+            $dataHotel->namaHotel = $dataRequest['namaHotel'];
+            $dataHotel->bintangHotel = $dataRequest['bintangHotel'];
+            $dataHotel->kamarVip = $dataRequest['kamarVip'];
+            $dataHotel->kamarStandart = $dataRequest['kamarStandart'];
+            $dataHotel->alamat = $dataRequest['alamat'];
+            $dataHotel->koordinat = $dataRequest['koordinat'];
+            $dataHotel->namaPj = $dataRequest['namaPj'];
+            $dataHotel->nikPj = $dataRequest['nikPj'];
+            $dataHotel->pendidikanPj = $dataRequest['pendidikanPj'];
+            $dataHotel->teleponPj = $dataRequest['teleponPj'];
+            $dataHotel->wargaNegaraPj = $dataRequest['wargaNegaraPj'];
+            $dataHotel->surveyor_id = $dataRequest['surveyor_id'];
+            $dataHotel->save();
 
-    public function deleteDataHotel(Request $request)
-    {}
+            return [
+                "statusCode" => 200,
+                "message" => 'update data hotel success'
+            ];
+        } catch (\Exception $e) {
+            return [
+                "statusCode" => 401,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
+
+    public function deleteDataHotel($id)
+    {
+        try {
+            $result = $this->hotelModel->find($id);
+            if ($result) {
+                $result->delete();
+                return [
+                    "statusCode" => 200,
+                    "message" => 'delete data hotel success'
+                ];
+            }
+            return [
+                "statusCode" => 404,
+                "message" => 'data hotel tidak ditemukan'
+            ];
+        } catch (\Exception $e) {
+            return [
+                "statusCode" => 401,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
 }

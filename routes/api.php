@@ -27,4 +27,18 @@ Route::group([
         });
     });
 });
-Route::get('test-id/{id}', [HotelController::class, 'detailDataHotel']);
+
+Route::group([
+    'prefix' => 'pengurus-besar'
+], function () {
+    // Route::group([
+    //     'middleware' => 'auth:api'
+    // ], function () {
+    // });
+    Route::get('list-hotel', [HotelController::class, 'listDataHotel']);
+    Route::get('detail-hotel/{id}', [HotelController::class, 'detailDataHotel']);
+    Route::post('input-hotel', [HotelController::class, 'inputDataHotel']);
+    Route::post('update-hotel/{id}', [HotelController::class, 'updateDataHotel']);
+    Route::delete('delete-hotel/{id}', [HotelController::class, 'deleteDataHotel']);
+});
+

@@ -36,13 +36,61 @@ class HotelController extends Controller
     }
 
     public function inputDataHotel(Request $request)
-    {}
+    {
+        $validateData = $request->validate([
+            'namaHotel' => 'required',
+            'bintangHotel' => 'required',
+            'kamarVip' => 'required',
+            'kamarStandart' => 'required',
+            'alamat' => 'required',
+            'koordinat' => 'required',
+            'namaPj' => 'required',
+            'nikPj' => 'required',
+            'pendidikanPj' => 'required',
+            'teleponPj' => 'required',
+            'wargaNegaraPj' => 'required',
+            'surveyor_id' => 'required',
+        ]);
 
-    public function updateDataHotel(Request $request)
-    {}
+        $result = $this->hotelService->inputDataHotel($validateData);
+        return response()->json([
+            'message' => $result['message']
+        ], $result['statusCode']
+        );
+    }
 
-    public function deleteDataHotel(Request $request)
-    {}
+    public function updateDataHotel(Request $request, $id)
+    {
+        $validateData = $request->validate([
+            'namaHotel' => 'required',
+            'bintangHotel' => 'required',
+            'kamarVip' => 'required',
+            'kamarStandart' => 'required',
+            'alamat' => 'required',
+            'koordinat' => 'required',
+            'namaPj' => 'required',
+            'nikPj' => 'required',
+            'pendidikanPj' => 'required',
+            'teleponPj' => 'required',
+            'wargaNegaraPj' => 'required',
+            'surveyor_id' => 'required',
+        ]);
+
+        $result = $this->hotelService->updateDataHotel($validateData, $id);
+        return response()->json([
+            'message' => $result['message']
+        ], $result['statusCode']
+        );
+    }
+
+    public function deleteDataHotel($id)
+    {
+        $result = $this->hotelService->deleteDataHotel($id);
+        return response()->json([
+            'message' => $result['message']
+        ], $result['statusCode']
+        );
+    }
 
     public function testId($id)
     {

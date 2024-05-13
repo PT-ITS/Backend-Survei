@@ -39,12 +39,39 @@ class HotelService
         }
     }
 
-    public function inputDataHotel(Request $request)
-    {}
+    public function inputDataHotel($dataRequest)
+    {
+        try {
+            return $this->hotelRepository->inputDataHotel($dataRequest);
+        } catch (\Exception $e) {
+            return [
+                "statusCode" => 401,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
 
-    public function updateDataHotel(Request $request)
-    {}
+    public function updateDataHotel($dataRequest, $id)
+    {
+        try {
+            return $this->hotelRepository->updateDataHotel($dataRequest, $id);
+        } catch (\Exception $e) {
+            return [
+                "statusCode" => 401,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
 
-    public function deleteDataHotel(Request $request)
-    {}
+    public function deleteDataHotel($id)
+    {
+        try {
+            return $this->hotelRepository->deleteDataHotel($id);
+        } catch (\Exception $e) {
+            return [
+                "statusCode" => 401,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
 }
