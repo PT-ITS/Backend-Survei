@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HotelController;
+use App\Http\Controllers\KaryawanController;
 
 Route::group([
     'prefix' => 'auth'
@@ -29,7 +30,7 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => 'pengurus-besar'
+    'prefix' => 'hotel'
 ], function () {
     // Route::group([
     //     'middleware' => 'auth:api'
@@ -40,5 +41,18 @@ Route::group([
     Route::post('input-hotel', [HotelController::class, 'inputDataHotel']);
     Route::post('update-hotel/{id}', [HotelController::class, 'updateDataHotel']);
     Route::delete('delete-hotel/{id}', [HotelController::class, 'deleteDataHotel']);
+});
+
+Route::group([
+    'prefix' => 'karyawan'
+], function () {
+    // Route::group([
+    //     'middleware' => 'auth:api'
+    // ], function () {
+    // });
+    Route::get('list-karyawan', [KaryawanController::class, 'listKaryawanInTempatKerja']);
+    Route::post('input-karyawan', [KaryawanController::class, 'inputDataKaryawan']);
+    Route::post('update-karyawan/{id}', [KaryawanController::class, 'updateDataKaryawan']);
+    Route::delete('delete-karyawan/{id}', [KaryawanController::class, 'deleteDataKaryawan']);
 });
 
