@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FnB;
 use Illuminate\Http\Request;
-use App\Services\FnbService;
+use App\Http\Services\FnbService;
 use Illuminate\Support\Facades\Storage;
 
 class FnbController extends Controller

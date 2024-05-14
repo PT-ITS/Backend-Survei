@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services;
+namespace App\Http\Services;
 
-use App\Repositories\FnbRepository;
+use App\Http\Repositories\FnbRepository;
 use Illuminate\Support\Facades\Storage;
 
 class FnbService
