@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FnbController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -59,6 +60,21 @@ Route::group([
     Route::post('create-hiburan', [HiburanController::class, 'createHiburan']);
     Route::post('update-hiburan/{id}', [HiburanController::class, 'updateHiburan']);
     Route::delete('delete-hiburan/{id}', [HiburanController::class, 'deleteHiburan']);
+});
+
+// FnB
+Route::group([
+    'prefix' => 'fnb'
+], function () {
+    // Route::group([
+    //     'middleware' => 'auth:api'
+    // ], function () {
+    // });
+    Route::get('list-fnb', [FnbController::class, 'listFnb']);
+    Route::get('detail-fnb/{id}', [FnbController::class, 'detailFnb']);
+    Route::post('create-fnb', [FnbController::class, 'createFnb']);
+    Route::post('update-fnb/{id}', [FnbController::class, 'updateFnb']);
+    Route::delete('delete-fnb/{id}', [FnbController::class, 'deleteFnb']);
 });
 
 // Karyawan
