@@ -42,7 +42,7 @@ Route::group([
     // });
     Route::get('list-hotel', [HotelController::class, 'listDataHotel']);
     Route::get('detail-hotel/{id}', [HotelController::class, 'detailDataHotel']);
-    Route::post('create-hotel', [HotelController::class, 'inputDataHotel']);
+    Route::post('input-hotel', [HotelController::class, 'inputDataHotel']);
     Route::post('update-hotel/{id}', [HotelController::class, 'updateDataHotel']);
     Route::delete('delete-hotel/{id}', [HotelController::class, 'deleteDataHotel']);
 });
@@ -57,7 +57,7 @@ Route::group([
     // });
     Route::get('list-hiburan', [HiburanController::class, 'listHiburan']);
     Route::get('detail-hiburan/{id}', [HiburanController::class, 'detailHiburan']);
-    Route::post('create-hiburan', [HiburanController::class, 'createHiburan']);
+    Route::post('input-hiburan', [HiburanController::class, 'createHiburan']);
     Route::post('update-hiburan/{id}', [HiburanController::class, 'updateHiburan']);
     Route::delete('delete-hiburan/{id}', [HiburanController::class, 'deleteHiburan']);
 });
@@ -72,7 +72,7 @@ Route::group([
     // });
     Route::get('list-fnb', [FnbController::class, 'listFnb']);
     Route::get('detail-fnb/{id}', [FnbController::class, 'detailFnb']);
-    Route::post('create-fnb', [FnbController::class, 'createFnb']);
+    Route::post('input-fnb', [FnbController::class, 'createFnb']);
     Route::post('update-fnb/{id}', [FnbController::class, 'updateFnb']);
     Route::delete('delete-fnb/{id}', [FnbController::class, 'deleteFnb']);
 });
