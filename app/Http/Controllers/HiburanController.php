@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Hiburan;
 use Illuminate\Http\Request;
-use App\Services\HiburanService;
+use App\Http\Services\HiburanService;
 use Illuminate\Support\Facades\Storage;
 
 class HiburanController extends Controller

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services;
+namespace App\Http\Services;
 
-use App\Repositories\HiburanRepository;
+use App\Http\Repositories\HiburanRepository;
 use Illuminate\Support\Facades\Storage;
 
 class HiburanService
