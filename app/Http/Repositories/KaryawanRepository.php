@@ -43,6 +43,7 @@ class KaryawanRepository
             $dataKaryawan->alamatKaryawan = $dataRequest['alamatKaryawan'];
             $dataKaryawan->wargaNegara = $dataRequest['wargaNegara'];
             $dataKaryawan->surveyor_id = $dataRequest['surveyor_id'];
+            $dataKaryawan->jenisKelamin = $dataRequest['jenisKelamin'];
             $dataKaryawan->save();
 
             return [

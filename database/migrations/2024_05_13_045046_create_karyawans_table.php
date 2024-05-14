@@ -21,6 +21,10 @@ class CreateKaryawansTable extends Migration
             $table->string('jabatanKaryawan');
             $table->string('alamatKaryawan');
             $table->string('wargaNegara');
+            $table->enum('jenisKelamin', [
+                '0', // perempuan
+                '1' // laki-laki
+            ]);
             $table->foreignId('surveyor_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

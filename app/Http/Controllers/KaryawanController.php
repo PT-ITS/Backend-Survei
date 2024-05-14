@@ -29,6 +29,7 @@ class KaryawanController extends Controller
             'alamatKaryawan' => 'required',
             'wargaNegara' => 'required',
             'surveyor_id' => 'required',
+            'jenisKelamin' => 'required',
         ]);
 
         $result = $this->karyawanService->inputDataKaryawan($validateData);
@@ -48,6 +49,7 @@ class KaryawanController extends Controller
             'alamatKaryawan' => 'required',
             'wargaNegara' => 'required',
             'surveyor_id' => 'required',
+            'jenisKelamin' => 'required',
         ]);
 
         $result = $this->karyawanService->updateDataKaryawan($validateData, $id);
