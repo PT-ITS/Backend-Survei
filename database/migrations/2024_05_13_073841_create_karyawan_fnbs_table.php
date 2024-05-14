@@ -15,8 +15,8 @@ class CreateKaryawanFnbsTable extends Migration
     {
         Schema::create('karyawan_fnbs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('idKaryawan')->constrained('karyawans')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('idFnb')->constrained('fn_b_s')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('karyawan_id')->constrained('karyawans')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('fnb_id')->constrained('fn_b_s')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Service\DashboardService;
+use App\Http\Services\DashboardService;
 
 class DashboardController extends Controller
 {
@@ -17,10 +17,12 @@ class DashboardController extends Controller
     public function getDataDashboard()
     {
         $result = $this->hotelService->listDataHotel();
-        return response()->json([
-            'message' => $result['message'],
-            'data' => $result['data'] 
-        ], $result['statusCode']
+        return response()->json(
+            [
+                'message' => $result['message'],
+                'data' => $result['data']
+            ],
+            $result['statusCode']
         );
     }
 }

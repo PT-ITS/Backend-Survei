@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFnBSTable extends Migration
+class CreateHiburansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateFnBSTable extends Migration
      */
     public function up()
     {
-        Schema::create('fn_b_s', function (Blueprint $table) {
+        Schema::create('hiburans', function (Blueprint $table) {
             $table->id();
-            $table->string('namaFnb');
+            $table->string('namaHiburan');
             $table->string('alamat');
             $table->string('koordinat');
             $table->string('namaPj');
@@ -35,6 +35,6 @@ class CreateFnBSTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fn_b_s');
+        Schema::dropIfExists('hiburans');
     }
 }

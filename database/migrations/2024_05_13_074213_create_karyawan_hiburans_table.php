@@ -15,8 +15,8 @@ class CreateKaryawanHiburansTable extends Migration
     {
         Schema::create('karyawan_hiburans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('idKaryawan')->constrained('karyawans')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('idHiburan')->constrained('hiburans')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('karyawan_id')->constrained('karyawans')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('hiburan_id')->constrained('hiburans')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

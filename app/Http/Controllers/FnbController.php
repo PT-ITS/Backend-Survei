@@ -51,7 +51,7 @@ class FnbController extends Controller
             'pendidikanPj' => 'required',
             'teleponPj' => 'required',
             'wargaNegaraPj' => 'required',
-            'idSurveyor' => 'required',
+            'surveyor_id' => 'required',
         ]);
 
         $result = $this->fnbService->createFnb($validateData);
@@ -74,7 +74,7 @@ class FnbController extends Controller
             'pendidikanPj' => 'required',
             'teleponPj' => 'required',
             'wargaNegaraPj' => 'required',
-            'idSurveyor' => 'required',
+            'surveyor_id' => 'required',
         ]);
 
         $result = $this->fnbService->updateFnb($validateData, $id);

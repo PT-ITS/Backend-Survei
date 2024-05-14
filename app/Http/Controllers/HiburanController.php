@@ -51,7 +51,7 @@ class HiburanController extends Controller
             'pendidikanPj' => 'required',
             'teleponPj' => 'required',
             'wargaNegaraPj' => 'required',
-            'idSurveyor' => 'required',
+            'surveyor_id' => 'required',
         ]);
 
         $result = $this->hiburanService->createHiburan($validateData);
@@ -74,7 +74,7 @@ class HiburanController extends Controller
             'pendidikanPj' => 'required',
             'teleponPj' => 'required',
             'wargaNegaraPj' => 'required',
-            'idSurveyor' => 'required',
+            'surveyor_id' => 'required',
         ]);
 
         $result = $this->hiburanService->updateHiburan($validateData, $id);

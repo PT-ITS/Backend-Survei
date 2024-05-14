@@ -42,7 +42,7 @@ Route::group([
     // });
     Route::get('list-hotel', [HotelController::class, 'listDataHotel']);
     Route::get('detail-hotel/{id}', [HotelController::class, 'detailDataHotel']);
-    Route::post('input-hotel', [HotelController::class, 'inputDataHotel']);
+    Route::post('create-hotel', [HotelController::class, 'inputDataHotel']);
     Route::post('update-hotel/{id}', [HotelController::class, 'updateDataHotel']);
     Route::delete('delete-hotel/{id}', [HotelController::class, 'deleteDataHotel']);
 });
