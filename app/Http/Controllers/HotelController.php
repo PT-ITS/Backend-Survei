@@ -37,67 +37,67 @@ class HotelController extends Controller
     }
 
     public function inputDataHotelAndKaryawan(Request $request)
-{
-    // Validasi data hotel
-    $validateHotelData = $request->validate([
-        'hotel.namaHotel' => 'required',
-        'hotel.bintangHotel' => 'required',
-        'hotel.kamarVip' => 'required',
-        'hotel.kamarStandart' => 'required',
-        'hotel.alamat' => 'required',
-        'hotel.koordinat' => 'required',
-        'hotel.namaPj' => 'required',
-        'hotel.nikPj' => 'required',
-        'hotel.pendidikanPj' => 'required',
-        'hotel.teleponPj' => 'required',
-        'hotel.wargaNegaraPj' => 'required',
-        'hotel.surveyor_id' => 'required',
-    ]);
+    {
+        // Validasi data hotel
+        $validateHotelData = $request->validate([
+            'hotel.namaHotel' => 'required',
+            'hotel.bintangHotel' => 'required',
+            'hotel.kamarVip' => 'required',
+            'hotel.kamarStandart' => 'required',
+            'hotel.alamat' => 'required',
+            'hotel.koordinat' => 'required',
+            'hotel.namaPj' => 'required',
+            'hotel.nikPj' => 'required',
+            'hotel.pendidikanPj' => 'required',
+            'hotel.teleponPj' => 'required',
+            'hotel.wargaNegaraPj' => 'required',
+            'hotel.surveyor_id' => 'required',
+        ]);
 
-    // Validasi data karyawan
-    $validateKaryawanData = $request->validate([
-        'karyawan.*.namaKaryawan' => 'required',
-        'karyawan.*.nikKaryawan' => 'required',
-        'karyawan.*.pendidikanKaryawan' => 'required',
-        'karyawan.*.jabatanKaryawan' => 'required',
-        'karyawan.*.alamatKaryawan' => 'required',
-        'karyawan.*.wargaNegara' => 'required',
-        'karyawan.*.surveyor_id' => 'required',
-        'karyawan.*.jenisKelamin' => 'required',
-    ]);
+        // Validasi data karyawan
+        $validateKaryawanData = $request->validate([
+            'karyawan.*.namaKaryawan' => 'required',
+            'karyawan.*.nikKaryawan' => 'required',
+            'karyawan.*.pendidikanKaryawan' => 'required',
+            'karyawan.*.jabatanKaryawan' => 'required',
+            'karyawan.*.alamatKaryawan' => 'required',
+            'karyawan.*.wargaNegara' => 'required',
+            'karyawan.*.surveyor_id' => 'required',
+            'karyawan.*.jenisKelamin' => 'required',
+        ]);
 
-    // Simpan data hotel
-    $hotel = new Hotel(); // Ganti dengan model Hotel yang sesuai
-    $hotel->namaHotel = $request->hotel['namaHotel'];
-    $hotel->bintangHotel = $request->hotel['bintangHotel'];
-    $hotel->kamarVip = $request->hotel['kamarVip'];
-    $hotel->kamarStandart = $request->hotel['kamarStandart'];
-    $hotel->alamat = $request->hotel['alamat'];
-    $hotel->koordinat = $request->hotel['koordinat'];
-    $hotel->namaPj = $request->hotel['namaPj'];
-    $hotel->nikPj = $request->hotel['nikPj'];
-    $hotel->pendidikanPj = $request->hotel['pendidikanPj'];
-    $hotel->teleponPj = $request->hotel['teleponPj'];
-    $hotel->wargaNegaraPj = $request->hotel['wargaNegaraPj'];
-    $hotel->surveyor_id = $request->hotel['surveyor_id'];
-    $hotel->save();
+        // Simpan data hotel
+        $hotel = new Hotel(); // Ganti dengan model Hotel yang sesuai
+        $hotel->namaHotel = $request->hotel['namaHotel'];
+        $hotel->bintangHotel = $request->hotel['bintangHotel'];
+        $hotel->kamarVip = $request->hotel['kamarVip'];
+        $hotel->kamarStandart = $request->hotel['kamarStandart'];
+        $hotel->alamat = $request->hotel['alamat'];
+        $hotel->koordinat = $request->hotel['koordinat'];
+        $hotel->namaPj = $request->hotel['namaPj'];
+        $hotel->nikPj = $request->hotel['nikPj'];
+        $hotel->pendidikanPj = $request->hotel['pendidikanPj'];
+        $hotel->teleponPj = $request->hotel['teleponPj'];
+        $hotel->wargaNegaraPj = $request->hotel['wargaNegaraPj'];
+        $hotel->surveyor_id = $request->hotel['surveyor_id'];
+        $hotel->save();
 
-    // Simpan data karyawan
-    foreach ($request->karyawan as $karyawanData) {
-        $karyawan = new Karyawan(); // Ganti dengan model Karyawan yang sesuai
-        $karyawan->namaKaryawan = $karyawanData['namaKaryawan'];
-        $karyawan->nikKaryawan = $karyawanData['nikKaryawan'];
-        $karyawan->pendidikanKaryawan = $karyawanData['pendidikanKaryawan'];
-        $karyawan->jabatanKaryawan = $karyawanData['jabatanKaryawan'];
-        $karyawan->alamatKaryawan = $karyawanData['alamatKaryawan'];
-        $karyawan->wargaNegara = $karyawanData['wargaNegara'];
-        $karyawan->surveyor_id = $karyawanData['surveyor_id'];
-        $karyawan->jenisKelamin = $karyawanData['jenisKelamin'];
-        $karyawan->save();
+        // Simpan data karyawan
+        foreach ($request->karyawan as $karyawanData) {
+            $karyawan = new Karyawan(); // Ganti dengan model Karyawan yang sesuai
+            $karyawan->namaKaryawan = $karyawanData['namaKaryawan'];
+            $karyawan->nikKaryawan = $karyawanData['nikKaryawan'];
+            $karyawan->pendidikanKaryawan = $karyawanData['pendidikanKaryawan'];
+            $karyawan->jabatanKaryawan = $karyawanData['jabatanKaryawan'];
+            $karyawan->alamatKaryawan = $karyawanData['alamatKaryawan'];
+            $karyawan->wargaNegara = $karyawanData['wargaNegara'];
+            $karyawan->surveyor_id = $karyawanData['surveyor_id'];
+            $karyawan->jenisKelamin = $karyawanData['jenisKelamin'];
+            $karyawan->save();
+        }
+
+        return response()->json(['message' => 'Data hotel dan karyawan berhasil disimpan'], 201);
     }
-
-    return response()->json(['message' => 'Data hotel dan karyawan berhasil disimpan'], 201);
-}
 
     
     // $result = $this->hotelService->inputDataHotel($validateData);
