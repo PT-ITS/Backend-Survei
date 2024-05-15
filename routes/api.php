@@ -72,7 +72,7 @@ Route::group([
     // });
     Route::get('list-fnb', [FnbController::class, 'listFnb']);
     Route::get('detail-fnb/{id}', [FnbController::class, 'detailFnb']);
-    Route::post('input-fnb', [FnbController::class, 'createFnb']);
+    Route::post('input-fnb', [FnbController::class, 'inputFnbAndKaryawan']);
     Route::post('update-fnb/{id}', [FnbController::class, 'updateFnb']);
     Route::delete('delete-fnb/{id}', [FnbController::class, 'deleteFnb']);
 });
