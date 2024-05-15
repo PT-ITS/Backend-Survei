@@ -57,7 +57,7 @@ Route::group([
     // });
     Route::get('list-hiburan', [HiburanController::class, 'listHiburan']);
     Route::get('detail-hiburan/{id}', [HiburanController::class, 'detailHiburan']);
-    Route::post('input-hiburan', [HiburanController::class, 'createHiburan']);
+    Route::post('input-hiburan', [HiburanController::class, 'inputHiburanAndKaryawan']);
     Route::post('update-hiburan/{id}', [HiburanController::class, 'updateHiburan']);
     Route::delete('delete-hiburan/{id}', [HiburanController::class, 'deleteHiburan']);
 });
