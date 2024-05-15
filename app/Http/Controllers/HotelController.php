@@ -19,20 +19,24 @@ class HotelController extends Controller
     public function listDataHotel()
     {
         $result = $this->hotelService->listDataHotel();
-        return response()->json([
-            'message' => $result['message'],
-            'data' => $result['data'] 
-        ], $result['statusCode']
+        return response()->json(
+            [
+                'message' => $result['message'],
+                'data' => $result['data']
+            ],
+            $result['statusCode']
         );
     }
 
     public function detailDataHotel($id)
     {
         $result = $this->hotelService->detailDataHotel($id);
-        return response()->json([
-            'message' => $result['message'],
-            'data' => $result['data'] 
-        ], $result['statusCode']
+        return response()->json(
+            [
+                'message' => $result['message'],
+                'data' => $result['data']
+            ],
+            $result['statusCode']
         );
     }
 
@@ -105,7 +109,9 @@ class HotelController extends Controller
     //     'message' => $result['message']
     // ], $result['statusCode']
     // );
-    public function karyawan($data, $idHotel){}
+    public function karyawan($data, $idHotel)
+    {
+    }
 
     public function updateDataHotel(Request $request, $id)
     {
@@ -125,18 +131,22 @@ class HotelController extends Controller
         ]);
 
         $result = $this->hotelService->updateDataHotel($validateData, $id);
-        return response()->json([
-            'message' => $result['message']
-        ], $result['statusCode']
+        return response()->json(
+            [
+                'message' => $result['message']
+            ],
+            $result['statusCode']
         );
     }
 
     public function deleteDataHotel($id)
     {
         $result = $this->hotelService->deleteDataHotel($id);
-        return response()->json([
-            'message' => $result['message']
-        ], $result['statusCode']
+        return response()->json(
+            [
+                'message' => $result['message']
+            ],
+            $result['statusCode']
         );
     }
 
@@ -150,6 +160,4 @@ class HotelController extends Controller
         // echo "encode:" . $id_encode . "<br>";
         echo "hasil:" . $id_result . "<br>";
     }
-
 }
-
