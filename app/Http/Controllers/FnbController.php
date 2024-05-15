@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Services\FnbService;
+use App\Models\Fnb;
+use App\Models\Karyawan;
+use App\Models\KaryawanFnb;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class FnbController extends Controller
@@ -40,28 +44,88 @@ class FnbController extends Controller
         );
     }
 
-    public function createFnb(Request $request)
+    public function inputFnbAndKaryawan(Request $request)
     {
-        $validateData = $request->validate([
-            'namaFnb' => 'required',
-            'alamat' => 'required',
-            'koordinat' => 'required',
-            'namaPj' => 'required',
-            'nikPj' => 'required',
-            'pendidikanPj' => 'required',
-            'teleponPj' => 'required',
-            'wargaNegaraPj' => 'required',
-            'surveyor_id' => 'required',
-        ]);
+        try {
+            // Validasi data fnb
+            $validateFnbData = $request->validate([
+                'fnb.namaFnb' => 'required',
+                'fnb.alamat' => 'required',
+                'fnb.koordinat' => 'required',
+                'fnb.namaPj' => 'required',
+                'fnb.nikPj' => 'required',
+                'fnb.pendidikanPj' => 'required',
+                'fnb.teleponPj' => 'required',
+                'fnb.wargaNegaraPj' => 'required',
+                'fnb.surveyor_id' => 'required',
+            ]);
 
-        $result = $this->fnbService->createFnb($validateData);
-        return response()->json(
-            [
-                'message' => $result['message']
-            ],
-            $result['statusCode']
-        );
+            // Validasi data karyawan
+            $validateKaryawanData = $request->validate([
+                'karyawan.*.namaKaryawan' => 'required',
+                'karyawan.*.nikKaryawan' => 'required',
+                'karyawan.*.pendidikanKaryawan' => 'required',
+                'karyawan.*.jabatanKaryawan' => 'required',
+                'karyawan.*.alamatKaryawan' => 'required',
+                'karyawan.*.wargaNegara' => 'required',
+                'karyawan.*.jenisKelamin' => 'required',
+                'karyawan.*.surveyor_id' => 'required',
+            ]);
+
+            DB::beginTransaction();
+
+            try {
+                // Simpan data fnb
+                $fnb = new Fnb();
+                $fnb->fill($request->fnb);
+                $fnb->save();
+
+                // Simpan data karyawan
+                foreach ($request->karyawan as $karyawanData) {
+                    $karyawan = new Karyawan();
+                    $karyawan->fill($karyawanData);
+                    $karyawan->save();
+
+                    $karyawanFnb = new KaryawanFnb();
+                    $karyawanFnb->karyawan_id = $karyawan->id;
+                    $karyawanFnb->fnb_id = $fnb->id;
+                    $karyawanFnb->save();
+                }
+
+                DB::commit();
+                return response()->json(['message' => 'Data fnb dan karyawan berhasil disimpan'], 201);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return response()->json(['message' => 'Terjadi kesalahan saat menyimpan data', 'error' => $e->getMessage()], 500);
+            }
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json(['message' => 'Validation failed', 'errors' => $e->errors()], 422);
+        }
     }
+
+
+    // public function createFnb(Request $request)
+    // {
+    //     $validateData = $request->validate([
+    //         'namaFnb' => 'required',
+    //         'alamat' => 'required',
+    //         'koordinat' => 'required',
+    //         'namaPj' => 'required',
+    //         'nikPj' => 'required',
+    //         'pendidikanPj' => 'required',
+    //         'teleponPj' => 'required',
+    //         'wargaNegaraPj' => 'required',
+    //         'surveyor_id' => 'required',
+    //     ]);
+
+    //     $result = $this->fnbService->createFnb($validateData);
+    //     return response()->json(
+    //         [
+    //             'message' => $result['message']
+    //         ],
+    //         $result['statusCode']
+    //     );
+    // }
 
     public function updateFnb(Request $request, $id)
     {
