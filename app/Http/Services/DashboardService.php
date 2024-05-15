@@ -25,4 +25,17 @@ class DashboardService
             ];
         }
     }
+
+    public function listAll()
+    {
+        try {
+            return $this->dashboardRepository->listAll();
+        } catch (\Exception $e) {
+            return [
+                "statusCode" => 401,
+                "data" => [],
+                "message" => $e->getMessage()
+            ];
+        }
+    }
 }
