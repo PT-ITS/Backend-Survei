@@ -13,8 +13,41 @@ class KaryawanService
         $this->karyawanRepository = $karyawanRepository;
     }
 
-    public function listKaryawanInTempatKerja()
-    {}
+    public function listKaryawanHotel($id)
+    {
+        try {
+            return $this->karyawanRepository->listKaryawanHotel($id);
+        } catch (\Exception $e) {
+            return [
+                "statusCode" => 401,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
+
+    public function listKaryawanHiburan($id)
+    {
+        try {
+            return $this->karyawanRepository->listKaryawanHiburan($id);
+        } catch (\Exception $e) {
+            return [
+                "statusCode" => 401,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
+
+    public function listKaryawanFnb($id)
+    {
+        try {
+            return $this->karyawanRepository->listKaryawanFnb($id);
+        } catch (\Exception $e) {
+            return [
+                "statusCode" => 401,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
 
     public function inputDataKaryawan($dataRequest)
     {
