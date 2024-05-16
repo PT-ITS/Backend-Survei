@@ -122,6 +122,14 @@ class HiburanRepository
         try {
             $hiburan = $this->hiburanModel->find($id);
             if ($hiburan) {
+                $relatedKaryawanIds = DB::table('karyawan_hiburans')
+                    ->where('hiburan_id', $id)
+                    ->pluck('karyawan_id')
+                    ->toArray();
+
+                // Delete related karyawan entries
+                DB::table('karyawans')->whereIn('id', $relatedKaryawanIds)->delete();
+
                 $hiburan->delete();
                 return [
                     "statusCode" => 200,

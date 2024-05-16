@@ -16,7 +16,7 @@ class DashboardService
     public function getDataDashboard()
     {
         try {
-            return $this->hotelRepository->listDataHotel();
+            return $this->dashboardRepository->getDataDashboard();
         } catch (\Exception $e) {
             return [
                 "statusCode" => 401,
@@ -30,6 +30,19 @@ class DashboardService
     {
         try {
             return $this->dashboardRepository->listAll();
+        } catch (\Exception $e) {
+            return [
+                "statusCode" => 401,
+                "data" => [],
+                "message" => $e->getMessage()
+            ];
+        }
+    }
+
+    public function listAllBySurveyor()
+    {
+        try {
+            return $this->dashboardRepository->listAllBySurveyor();
         } catch (\Exception $e) {
             return [
                 "statusCode" => 401,

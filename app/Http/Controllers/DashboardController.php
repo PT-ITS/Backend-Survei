@@ -16,7 +16,7 @@ class DashboardController extends Controller
 
     public function getDataDashboard()
     {
-        $result = $this->hotelService->listDataHotel();
+        $result = $this->dashboardService->getDataDashboard();
         return response()->json(
             [
                 'message' => $result['message'],
@@ -28,7 +28,31 @@ class DashboardController extends Controller
 
     public function listAll()
     {
-        $result = $this->dashboardService->listAll();
+        // cek jika user login
+        $user = auth()->user();
+
+        if (!$user) {
+            // return jika belum login
+            return response()->json(
+                [
+                    'message' => 'Unauthorized',
+                    'data' => []
+                ],
+                401
+            );
+        }
+
+        // inisialisasi hasil
+        $result = [];
+
+        // cek level user
+        if ($user->level == 0) { // jika admin
+            $result = $this->dashboardService->listAll();
+        } else { // jika surveyor
+            $result = $this->dashboardService->listAllBySurveyor();
+        }
+
+        // return hasil
         return response()->json(
             [
                 'message' => $result['message'],

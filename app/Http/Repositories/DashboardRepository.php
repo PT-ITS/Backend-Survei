@@ -72,4 +72,31 @@ class DashboardRepository
             ];
         }
     }
+
+    public function listAllBySurveyor()
+    {
+        try {
+            $hotelData = Hotel::where('surveyor_id', auth()->user()->id)->get();
+            $hiburanData = Hiburan::where('surveyor_id', auth()->user()->id)->get();
+            $fnbData = Fnb::where('surveyor_id', auth()->user()->id)->get();
+
+            $allData = [
+                "hotel" => $hotelData,
+                "hiburan" => $hiburanData,
+                "fnb" => $fnbData
+            ];
+
+            return [
+                "statusCode" => 200,
+                "data" => $allData,
+                "message" => 'get data berdasarkan surveyor success'
+            ];
+        } catch (\Exception $e) {
+            return [
+                "statusCode" => 401,
+                "data" => [],
+                "message" => $e->getMessage()
+            ];
+        }
+    }
 }

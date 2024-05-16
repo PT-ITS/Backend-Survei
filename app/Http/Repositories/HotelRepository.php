@@ -5,6 +5,7 @@ namespace App\Http\Repositories;
 use App\Models\Hotel;
 use App\Models\Karyawan;
 use App\Models\KaryawanHotel;
+use Illuminate\Support\Facades\DB;
 
 class HotelRepository
 {
@@ -46,16 +47,16 @@ class HotelRepository
                 ->select('karyawans.*', 'karyawan_hotels.karyawan_id', 'karyawan_hotels.hotel_id')
                 ->where('karyawan_hotels.hotel_id', $id)
                 ->get();
-            
+
             // ambil karyawan hotels yang id nya sama dengan id hotel
             $jumlahKaryawan = KaryawanHotel::where('hotel_id', $id)->get();
 
-    // Mengambil ID karyawan dari hasil query di atas
-    $karyawanIds = $jumlahKaryawan->pluck('karyawan_id');
+            // Mengambil ID karyawan dari hasil query di atas
+            $karyawanIds = $jumlahKaryawan->pluck('karyawan_id');
 
-    // Menghitung jumlah karyawan laki-laki dan perempuan
-    $jumlahLaki = Karyawan::whereIn('id', $karyawanIds)->where('jenisKelamin', '1')->count();
-    $jumlahWanita = Karyawan::whereIn('id', $karyawanIds)->where('jenisKelamin', '0')->count();
+            // Menghitung jumlah karyawan laki-laki dan perempuan
+            $jumlahLaki = Karyawan::whereIn('id', $karyawanIds)->where('jenisKelamin', '1')->count();
+            $jumlahWanita = Karyawan::whereIn('id', $karyawanIds)->where('jenisKelamin', '0')->count();
 
 
             return [
@@ -126,9 +127,18 @@ class HotelRepository
     public function deleteDataHotel($id)
     {
         try {
-            $result = $this->hotelModel->find($id);
-            if ($result) {
-                $result->delete();
+            $hotel = $this->hotelModel->find($id);
+            if ($hotel) {
+                $relatedKaryawanIds = DB::table('karyawan_hotels')
+                    ->where('hotel_id', $id)
+                    ->pluck('karyawan_id')
+                    ->toArray();
+
+                // Delete related karyawan entries
+                DB::table('karyawans')->whereIn('id', $relatedKaryawanIds)->delete();
+
+                // Delete the hotel
+                $hotel->delete();
                 return [
                     "statusCode" => 200,
                     "message" => 'delete data hotel success'
