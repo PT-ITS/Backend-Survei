@@ -3,6 +3,7 @@
 namespace App\Http\Repositories;
 
 use App\Models\Fnb;
+use App\Models\Karyawan;
 use Illuminate\Support\Facades\DB;
 
 class FnbRepository
@@ -35,10 +36,23 @@ class FnbRepository
     {
         try {
             $dataFnb = $this->fnbModel->find($id);
+
+            if (!$dataFnb) {
+                throw new \Exception('fnb data not found');
+            }
+
+            $dataKaryawan = Karyawan::join('karyawan_fnbs', 'karyawans.id', '=', 'karyawan_fnbs.karyawan_id')
+                ->select('karyawans.*', 'karyawan_fnbs.karyawan_id', 'karyawan_fnbs.fnb_id')
+                ->where('karyawan_fnbs.fnb_id', $id)
+                ->get();
+
             return [
                 "statusCode" => 200,
-                "data" => $dataFnb,
-                "message" => 'get detail data fnb success'
+                "data" => [
+                    "fnb" => $dataFnb,
+                    "karyawan" => $dataKaryawan
+                ],
+                "message" => 'get detail data fnb and karyawan fnb success'
             ];
         } catch (\Exception $e) {
             return [

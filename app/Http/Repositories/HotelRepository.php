@@ -3,6 +3,7 @@
 namespace App\Http\Repositories;
 
 use App\Models\Hotel;
+use App\Models\Karyawan;
 
 class HotelRepository
 {
@@ -35,10 +36,23 @@ class HotelRepository
     {
         try {
             $dataHotel = $this->hotelModel->find($id);
+
+            if (!$dataHotel) {
+                throw new \Exception('hotel data not found');
+            }
+
+            $dataKaryawan = Karyawan::join('karyawan_hotels', 'karyawans.id', '=', 'karyawan_hotels.karyawan_id')
+                ->select('karyawans.*', 'karyawan_hotels.karyawan_id', 'karyawan_hotels.hotel_id')
+                ->where('karyawan_hotels.hotel_id', $id)
+                ->get();
+
             return [
                 "statusCode" => 200,
-                "data" => $dataHotel,
-                "message" => 'get detail data hotel success'
+                "data" => [
+                    "hotel" => $dataHotel,
+                    "karyawan" => $dataKaryawan
+                ],
+                "message" => 'get detail data hotel and karyawan hotel success'
             ];
         } catch (\Exception $e) {
             return [
