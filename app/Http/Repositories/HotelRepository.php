@@ -4,6 +4,7 @@ namespace App\Http\Repositories;
 
 use App\Models\Hotel;
 use App\Models\Karyawan;
+use App\Models\KaryawanHotel;
 
 class HotelRepository
 {
@@ -45,12 +46,25 @@ class HotelRepository
                 ->select('karyawans.*', 'karyawan_hotels.karyawan_id', 'karyawan_hotels.hotel_id')
                 ->where('karyawan_hotels.hotel_id', $id)
                 ->get();
+            
+            // ambil karyawan hotels yang id nya sama dengan id hotel
+            $jumlahKaryawan = KaryawanHotel::where('hotel_id', $id)->get();
+
+    // Mengambil ID karyawan dari hasil query di atas
+    $karyawanIds = $jumlahKaryawan->pluck('karyawan_id');
+
+    // Menghitung jumlah karyawan laki-laki dan perempuan
+    $jumlahLaki = Karyawan::whereIn('id', $karyawanIds)->where('jenisKelamin', '1')->count();
+    $jumlahWanita = Karyawan::whereIn('id', $karyawanIds)->where('jenisKelamin', '0')->count();
+
 
             return [
                 "statusCode" => 200,
                 "data" => [
                     "hotel" => $dataHotel,
-                    "karyawan" => $dataKaryawan
+                    "karyawan" => $dataKaryawan,
+                    "lakiLaki" => $jumlahLaki,
+                    "perempuan" => $jumlahWanita
                 ],
                 "message" => 'get detail data hotel and karyawan hotel success'
             ];

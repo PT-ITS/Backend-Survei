@@ -7,10 +7,7 @@ use App\Http\Services\HotelService;
 use App\Models\Hotel;
 use App\Models\Karyawan;
 use App\Models\KaryawanHotel;
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Facades\DB;
->>>>>>> e335bd6bfc481988e1d8ab9e35c2a6a77d1f0399
 
 class HotelController extends Controller
 {
@@ -78,26 +75,6 @@ class HotelController extends Controller
 
             DB::beginTransaction();
 
-<<<<<<< HEAD
-        
-        // Simpan data karyawan
-        foreach ($request->karyawan as $karyawanData) {
-            $karyawan = new Karyawan(); // Ganti dengan model Karyawan yang sesuai
-            $karyawan->namaKaryawan = $karyawanData['namaKaryawan'];
-            $karyawan->nikKaryawan = $karyawanData['nikKaryawan'];
-            $karyawan->pendidikanKaryawan = $karyawanData['pendidikanKaryawan'];
-            $karyawan->jabatanKaryawan = $karyawanData['jabatanKaryawan'];
-            $karyawan->alamatKaryawan = $karyawanData['alamatKaryawan'];
-            $karyawan->wargaNegara = $karyawanData['wargaNegara'];
-            $karyawan->surveyor_id = $karyawanData['surveyor_id'];
-            $karyawan->jenisKelamin = $karyawanData['jenisKelamin'];
-            $karyawan->save();
-
-            $karyawanHotel = new KaryawanHotel();
-            $karyawanHotel->hotel_id = $hotel->id;
-            $karyawanHotel->karyawan_id = $karyawan->id;
-            $karyawanHotel->save();
-=======
             try {
                 // Simpan data hotel
                 $hotel = new Hotel();
@@ -124,7 +101,6 @@ class HotelController extends Controller
             }
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json(['message' => 'Validation failed', 'errors' => $e->errors()], 422);
->>>>>>> e335bd6bfc481988e1d8ab9e35c2a6a77d1f0399
         }
     }
 
