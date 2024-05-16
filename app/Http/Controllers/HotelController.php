@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Services\HotelService;
 use App\Models\Hotel;
 use App\Models\Karyawan;
+use App\Models\KaryawanHotel;
 
 class HotelController extends Controller
 {
@@ -86,6 +87,7 @@ class HotelController extends Controller
         $hotel->surveyor_id = $request->hotel['surveyor_id'];
         $hotel->save();
 
+        
         // Simpan data karyawan
         foreach ($request->karyawan as $karyawanData) {
             $karyawan = new Karyawan(); // Ganti dengan model Karyawan yang sesuai
@@ -98,6 +100,11 @@ class HotelController extends Controller
             $karyawan->surveyor_id = $karyawanData['surveyor_id'];
             $karyawan->jenisKelamin = $karyawanData['jenisKelamin'];
             $karyawan->save();
+
+            $karyawanHotel = new KaryawanHotel();
+            $karyawanHotel->hotel_id = $hotel->id;
+            $karyawanHotel->karyawan_id = $karyawan->id;
+            $karyawanHotel->save();
         }
 
         return response()->json(['message' => 'Data hotel dan karyawan berhasil disimpan'], 201);
