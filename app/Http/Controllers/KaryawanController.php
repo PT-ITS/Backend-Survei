@@ -14,9 +14,40 @@ class KaryawanController extends Controller
         $this->karyawanService = $karyawanService;
     }
 
-    public function listKaryawanInTempatKerja()
+    public function listKaryawanHotel($id)
     {
+        $result = $this->karyawanService->listKaryawanHotel($id);
+        return response()->json(
+            [
+                'message' => $result['message'],
+                'data' => $result['data']
+            ],
+            $result['statusCode']
+        );
+    }
 
+    public function listKaryawanHiburan($id)
+    {
+        $result = $this->karyawanService->listKaryawanHiburan($id);
+        return response()->json(
+            [
+                'message' => $result['message'],
+                'data' => $result['data']
+            ],
+            $result['statusCode']
+        );
+    }
+
+    public function listKaryawanFnb($id)
+    {
+        $result = $this->karyawanService->listKaryawanFnb($id);
+        return response()->json(
+            [
+                'message' => $result['message'],
+                'data' => $result['data']
+            ],
+            $result['statusCode']
+        );
     }
 
     public function inputDataKaryawan(Request $request)
@@ -33,9 +64,11 @@ class KaryawanController extends Controller
         ]);
 
         $result = $this->karyawanService->inputDataKaryawan($validateData);
-        return response()->json([
-            'message' => $result['message']
-        ], $result['statusCode']
+        return response()->json(
+            [
+                'message' => $result['message']
+            ],
+            $result['statusCode']
         );
     }
 
@@ -53,18 +86,22 @@ class KaryawanController extends Controller
         ]);
 
         $result = $this->karyawanService->updateDataKaryawan($validateData, $id);
-        return response()->json([
-            'message' => $result['message']
-        ], $result['statusCode']
+        return response()->json(
+            [
+                'message' => $result['message']
+            ],
+            $result['statusCode']
         );
     }
 
     public function deleteDataKaryawan($id)
     {
         $result = $this->karyawanService->deleteDataKaryawan($id);
-        return response()->json([
-            'message' => $result['message']
-        ], $result['statusCode']
+        return response()->json(
+            [
+                'message' => $result['message']
+            ],
+            $result['statusCode']
         );
     }
 }

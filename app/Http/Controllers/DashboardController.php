@@ -25,4 +25,16 @@ class DashboardController extends Controller
             $result['statusCode']
         );
     }
+
+    public function listAll()
+    {
+        $result = $this->dashboardService->listAll();
+        return response()->json(
+            [
+                'message' => $result['message'],
+                'data' => $result['data']
+            ],
+            $result['statusCode']
+        );
+    }
 }

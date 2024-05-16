@@ -45,4 +45,31 @@ class DashboardRepository
             ];
         }
     }
+
+    public function listAll()
+    {
+        try {
+            $hotelData = Hotel::get();
+            $hiburanData = Hiburan::get();
+            $fnbData = Fnb::get();
+
+            $allData = [
+                "hotel" => $hotelData,
+                "hiburan" => $hiburanData,
+                "fnb" => $fnbData
+            ];
+
+            return [
+                "statusCode" => 200,
+                "data" => $allData,
+                "message" => 'get semua data success'
+            ];
+        } catch (\Exception $e) {
+            return [
+                "statusCode" => 401,
+                "data" => [],
+                "message" => $e->getMessage()
+            ];
+        }
+    }
 }

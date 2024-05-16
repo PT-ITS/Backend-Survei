@@ -7,6 +7,10 @@ use App\Http\Services\HotelService;
 use App\Models\Hotel;
 use App\Models\Karyawan;
 use App\Models\KaryawanHotel;
+<<<<<<< HEAD
+=======
+use Illuminate\Support\Facades\DB;
+>>>>>>> e335bd6bfc481988e1d8ab9e35c2a6a77d1f0399
 
 class HotelController extends Controller
 {
@@ -43,50 +47,38 @@ class HotelController extends Controller
 
     public function inputDataHotelAndKaryawan(Request $request)
     {
-        // Validasi data hotel
-        $validateHotelData = $request->validate([
-            'hotel.namaHotel' => 'required',
-            'hotel.bintangHotel' => 'required',
-            'hotel.kamarVip' => 'required',
-            'hotel.kamarStandart' => 'required',
-            'hotel.alamat' => 'required',
-            'hotel.koordinat' => 'required',
-            'hotel.namaPj' => 'required',
-            'hotel.nikPj' => 'required',
-            'hotel.pendidikanPj' => 'required',
-            'hotel.teleponPj' => 'required',
-            'hotel.wargaNegaraPj' => 'required',
-            'hotel.surveyor_id' => 'required',
-        ]);
+        try {
+            // Validasi data hotel
+            $validateHotelData = $request->validate([
+                'hotel.namaHotel' => 'required',
+                'hotel.bintangHotel' => 'required',
+                'hotel.kamarVip' => 'required',
+                'hotel.kamarStandart' => 'required',
+                'hotel.alamat' => 'required',
+                'hotel.koordinat' => 'required',
+                'hotel.namaPj' => 'required',
+                'hotel.nikPj' => 'required',
+                'hotel.pendidikanPj' => 'required',
+                'hotel.teleponPj' => 'required',
+                'hotel.wargaNegaraPj' => 'required',
+                'hotel.surveyor_id' => 'required',
+            ]);
 
-        // Validasi data karyawan
-        $validateKaryawanData = $request->validate([
-            'karyawan.*.namaKaryawan' => 'required',
-            'karyawan.*.nikKaryawan' => 'required',
-            'karyawan.*.pendidikanKaryawan' => 'required',
-            'karyawan.*.jabatanKaryawan' => 'required',
-            'karyawan.*.alamatKaryawan' => 'required',
-            'karyawan.*.wargaNegara' => 'required',
-            'karyawan.*.surveyor_id' => 'required',
-            'karyawan.*.jenisKelamin' => 'required',
-        ]);
+            // Validasi data karyawan
+            $validateKaryawanData = $request->validate([
+                'karyawan.*.namaKaryawan' => 'required',
+                'karyawan.*.nikKaryawan' => 'required',
+                'karyawan.*.pendidikanKaryawan' => 'required',
+                'karyawan.*.jabatanKaryawan' => 'required',
+                'karyawan.*.alamatKaryawan' => 'required',
+                'karyawan.*.wargaNegara' => 'required',
+                'karyawan.*.jenisKelamin' => 'required',
+                'karyawan.*.surveyor_id' => 'required',
+            ]);
 
-        // Simpan data hotel
-        $hotel = new Hotel(); // Ganti dengan model Hotel yang sesuai
-        $hotel->namaHotel = $request->hotel['namaHotel'];
-        $hotel->bintangHotel = $request->hotel['bintangHotel'];
-        $hotel->kamarVip = $request->hotel['kamarVip'];
-        $hotel->kamarStandart = $request->hotel['kamarStandart'];
-        $hotel->alamat = $request->hotel['alamat'];
-        $hotel->koordinat = $request->hotel['koordinat'];
-        $hotel->namaPj = $request->hotel['namaPj'];
-        $hotel->nikPj = $request->hotel['nikPj'];
-        $hotel->pendidikanPj = $request->hotel['pendidikanPj'];
-        $hotel->teleponPj = $request->hotel['teleponPj'];
-        $hotel->wargaNegaraPj = $request->hotel['wargaNegaraPj'];
-        $hotel->surveyor_id = $request->hotel['surveyor_id'];
-        $hotel->save();
+            DB::beginTransaction();
 
+<<<<<<< HEAD
         
         // Simpan data karyawan
         foreach ($request->karyawan as $karyawanData) {
@@ -105,9 +97,35 @@ class HotelController extends Controller
             $karyawanHotel->hotel_id = $hotel->id;
             $karyawanHotel->karyawan_id = $karyawan->id;
             $karyawanHotel->save();
-        }
+=======
+            try {
+                // Simpan data hotel
+                $hotel = new Hotel();
+                $hotel->fill($request->hotel);
+                $hotel->save();
 
-        return response()->json(['message' => 'Data hotel dan karyawan berhasil disimpan'], 201);
+                // Simpan data karyawan
+                foreach ($request->karyawan as $karyawanData) {
+                    $karyawan = new Karyawan();
+                    $karyawan->fill($karyawanData);
+                    $karyawan->save();
+
+                    $karyawanHotel = new KaryawanHotel();
+                    $karyawanHotel->karyawan_id = $karyawan->id;
+                    $karyawanHotel->hotel_id = $hotel->id;
+                    $karyawanHotel->save();
+                }
+
+                DB::commit();
+                return response()->json(['message' => 'Data hotel dan karyawan berhasil disimpan'], 201);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return response()->json(['message' => 'Terjadi kesalahan saat menyimpan data', 'error' => $e->getMessage()], 500);
+            }
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json(['message' => 'Validation failed', 'errors' => $e->errors()], 422);
+>>>>>>> e335bd6bfc481988e1d8ab9e35c2a6a77d1f0399
+        }
     }
 
     
@@ -116,9 +134,6 @@ class HotelController extends Controller
     //     'message' => $result['message']
     // ], $result['statusCode']
     // );
-    public function karyawan($data, $idHotel)
-    {
-    }
 
     public function updateDataHotel(Request $request, $id)
     {
