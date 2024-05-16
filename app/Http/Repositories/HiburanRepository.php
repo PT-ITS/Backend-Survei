@@ -4,6 +4,7 @@ namespace App\Http\Repositories;
 
 use App\Models\Hiburan;
 use App\Models\Karyawan;
+use App\Models\KaryawanHiburan;
 use Illuminate\Support\Facades\DB;
 
 class HiburanRepository
@@ -46,11 +47,23 @@ class HiburanRepository
                 ->where('karyawan_hiburans.hiburan_id', $id)
                 ->get();
 
+            // ambil karyawan hiburans yang id nya sama dengan id hiburan
+            $jumlahKaryawan = KaryawanHiburan::where('hiburan_id', $id)->get();
+
+            // Mengambil ID karyawan dari hasil query di atas
+            $karyawanIds = $jumlahKaryawan->pluck('karyawan_id');
+
+            // Menghitung jumlah karyawan laki-laki dan perempuan
+            $jumlahLaki = Karyawan::whereIn('id', $karyawanIds)->where('jenisKelamin', '1')->count();
+            $jumlahWanita = Karyawan::whereIn('id', $karyawanIds)->where('jenisKelamin', '0')->count();
+
             return [
                 "statusCode" => 200,
                 "data" => [
                     "hiburan" => $dataHiburan,
-                    "karyawan" => $dataKaryawan
+                    "karyawan" => $dataKaryawan,
+                    "lakiLaki" => $jumlahLaki,
+                    "perempuan" => $jumlahWanita
                 ],
                 "message" => 'get detail data hiburan and karyawan hiburan success'
             ];

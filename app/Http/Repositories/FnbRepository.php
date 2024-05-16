@@ -4,6 +4,7 @@ namespace App\Http\Repositories;
 
 use App\Models\Fnb;
 use App\Models\Karyawan;
+use App\Models\KaryawanFnb;
 use Illuminate\Support\Facades\DB;
 
 class FnbRepository
@@ -46,11 +47,23 @@ class FnbRepository
                 ->where('karyawan_fnbs.fnb_id', $id)
                 ->get();
 
+            // ambil karyawan fnbs yang id nya sama dengan id fnb
+            $jumlahKaryawan = KaryawanFnb::where('fnb_id', $id)->get();
+
+            // Mengambil ID karyawan dari hasil query di atas
+            $karyawanIds = $jumlahKaryawan->pluck('karyawan_id');
+
+            // Menghitung jumlah karyawan laki-laki dan perempuan
+            $jumlahLaki = Karyawan::whereIn('id', $karyawanIds)->where('jenisKelamin', '1')->count();
+            $jumlahWanita = Karyawan::whereIn('id', $karyawanIds)->where('jenisKelamin', '0')->count();
+
             return [
                 "statusCode" => 200,
                 "data" => [
                     "fnb" => $dataFnb,
-                    "karyawan" => $dataKaryawan
+                    "karyawan" => $dataKaryawan,
+                    "lakiLaki" => $jumlahLaki,
+                    "perempuan" => $jumlahWanita
                 ],
                 "message" => 'get detail data fnb and karyawan fnb success'
             ];
