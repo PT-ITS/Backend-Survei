@@ -3,6 +3,7 @@
 namespace App\Http\Repositories;
 
 use App\Models\Hiburan;
+use App\Models\Karyawan;
 use Illuminate\Support\Facades\DB;
 
 class HiburanRepository
@@ -35,10 +36,23 @@ class HiburanRepository
     {
         try {
             $dataHiburan = $this->hiburanModel->find($id);
+
+            if (!$dataHiburan) {
+                throw new \Exception('hiburan data not found');
+            }
+
+            $dataKaryawan = Karyawan::join('karyawan_hiburans', 'karyawans.id', '=', 'karyawan_hiburans.karyawan_id')
+                ->select('karyawans.*', 'karyawan_hiburans.karyawan_id', 'karyawan_hiburans.hiburan_id')
+                ->where('karyawan_hiburans.hiburan_id', $id)
+                ->get();
+
             return [
                 "statusCode" => 200,
-                "data" => $dataHiburan,
-                "message" => 'get detail data hiburan success'
+                "data" => [
+                    "hiburan" => $dataHiburan,
+                    "karyawan" => $dataKaryawan
+                ],
+                "message" => 'get detail data hiburan and karyawan hiburan success'
             ];
         } catch (\Exception $e) {
             return [
@@ -48,6 +62,7 @@ class HiburanRepository
             ];
         }
     }
+
 
     public function createHiburan($requestData)
     {
