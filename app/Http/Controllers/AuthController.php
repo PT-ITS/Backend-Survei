@@ -168,8 +168,8 @@ class AuthController extends Controller
 
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->alamat = bcrypt($request->input('alamat'));
-        $user->noHP = bcrypt($request->input('noHP'));
+        $user->alamat = $request->input('alamat');
+        $user->noHP = $request->input('noHP');
 
         $user->save();
 
