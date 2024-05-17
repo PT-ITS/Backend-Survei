@@ -159,7 +159,7 @@ class AuthController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $id,
             'alamat' => 'required',
-            'noHp' => 'required'
+            'noHP' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -169,7 +169,7 @@ class AuthController extends Controller
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->alamat = bcrypt($request->input('alamat'));
-        $user->noHp = bcrypt($request->input('noHp'));
+        $user->noHP = bcrypt($request->input('noHP'));
 
         $user->save();
 
