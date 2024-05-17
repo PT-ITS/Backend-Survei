@@ -110,6 +110,7 @@ class KaryawanRepository
             $dataKaryawan->pendidikanKaryawan = $dataRequest['pendidikanKaryawan'];
             $dataKaryawan->jabatanKaryawan = $dataRequest['jabatanKaryawan'];
             $dataKaryawan->alamatKaryawan = $dataRequest['alamatKaryawan'];
+            $dataKaryawan->sertifikasiKaryawan = $dataRequest['sertifikasiKaryawan'];
             $dataKaryawan->wargaNegara = $dataRequest['wargaNegara'];
             $dataKaryawan->surveyor_id = $dataRequest['surveyor_id'];
             $dataKaryawan->jenisKelamin = $dataRequest['jenisKelamin'];

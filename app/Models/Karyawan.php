@@ -15,6 +15,7 @@ class Karyawan extends Model
         'pendidikanKaryawan',
         'jabatanKaryawan',
         'alamatKaryawan',
+        'sertifikasiKaryawan',
         'wargaNegara',
         'surveyor_id',
         'jenisKelamin'
