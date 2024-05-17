@@ -35,8 +35,8 @@ class AuthController extends Controller
             'name' => request('name'),
             'email' => request('email'),
             'password' => bcrypt(request('password')),
-            'alamat' => bcrypt(request('alamat')),
-            'noHP' => bcrypt(request('noHP')),
+            'alamat' => request('alamat'),
+            'noHP' => request('noHP'),
         ]);
 
         if ($user) {
