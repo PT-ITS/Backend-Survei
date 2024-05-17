@@ -21,8 +21,9 @@ Route::group([
         Route::post('logout', [AuthController::class, 'logout']);
         Route::post('refresh', [AuthController::class, 'refresh']);
         Route::get('me', [AuthController::class, 'me']);
+        Route::get('list-pengguna', [AuthController::class, 'listPengguna']);
         Route::post('update/{id}', [AuthController::class, 'update']);
-        Route::post('delete/{id}', [AuthController::class, 'delete']);
+        Route::delete('delete/{id}', [AuthController::class, 'delete']);
 
 
         Route::group([

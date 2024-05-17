@@ -125,13 +125,31 @@ class AuthController extends Controller
         ]);
     }
 
+    public function listPengguna()
+    {
+        try {
+            $result = User::get();
+            return response()->json(
+                [
+                    'message' => 'data pengguna ditemukan',
+                    'data' => $result
+                ],
+                200
+            );
+        } catch (\Exception  $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'data' => null
+            ], 401);
+        }
+    }
+
     public function update(Request $request, $id)
     {
         $user = User::find($id);
 
         if (!$user) {
             return response()->json([
-                'status' => 404,
                 'message' => 'User not found',
                 'data' => null
             ], 404);
@@ -141,7 +159,7 @@ class AuthController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $id,
             'alamat' => 'required',
-            'noHP' => 'required'
+            'noHp' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -151,7 +169,7 @@ class AuthController extends Controller
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->alamat = bcrypt($request->input('alamat'));
-        $user->noHp = bcrypt($request->input('noHP'));
+        $user->noHp = bcrypt($request->input('noHp'));
 
         $user->save();
 
