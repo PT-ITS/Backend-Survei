@@ -68,7 +68,6 @@ class FnbController extends Controller
                 'karyawan.*.alamatKaryawan' => 'required',
                 'karyawan.*.wargaNegara' => 'required',
                 'karyawan.*.jenisKelamin' => 'required',
-                'karyawan.*.surveyor_id' => 'required',
             ]);
 
             DB::beginTransaction();
@@ -84,6 +83,7 @@ class FnbController extends Controller
                 foreach ($request->karyawan as $karyawanData) {
                     $karyawan = new Karyawan();
                     $karyawan->fill($karyawanData);
+                    $karyawan->surveyor_id = auth()->user()->id;
                     $karyawan->save();
 
                     $karyawanFnb = new KaryawanFnb();
