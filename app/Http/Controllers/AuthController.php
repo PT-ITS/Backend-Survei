@@ -55,7 +55,7 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
 
-        if (! $token = JWTAuth::attempt($credentials)) {
+        if (!$token = JWTAuth::attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -124,7 +124,55 @@ class AuthController extends Controller
             'expires_in' => auth()->factory()->getTTL() * 60,
         ]);
     }
-    
-    
 
+    public function update(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'User not found',
+                'data' => null
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'alamat' => 'required',
+            'noHP' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->messages()], 400);
+        }
+
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->alamat = bcrypt($request->input('alamat'));
+        $user->noHp = bcrypt($request->input('noHP'));
+
+        $user->save();
+
+        return response()->json([
+            'message' => 'success',
+            'data' => $user
+        ], 200);
+    }
+
+    public function delete($id)
+    {
+        $data = User::find($id);
+        if ($data) {
+            $data->delete();
+            return response()->json([
+                'message' => 'success',
+
+            ], 200);
+        }
+        return response()->json([
+            'message' => 'data not found'
+        ], 404);
+    }
 }

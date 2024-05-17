@@ -21,7 +21,16 @@ class UserSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => Hash::make('12345'),
             'alamat' => 'test',
-            'noHP' => '0000000'
+            'level' => '1',
+            'noHP' => '0812345'
+        ]);
+        User::create([
+            'name' => 'surveyor',
+            'email' => 'survey@gmail.com',
+            'password' => Hash::make('12345'),
+            'alamat' => 'test',
+            'level' => '0',
+            'noHP' => '0812345'
         ]);
     }
 }

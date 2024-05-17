@@ -20,6 +20,7 @@ class CreateKaryawansTable extends Migration
             $table->string('pendidikanKaryawan');
             $table->string('jabatanKaryawan');
             $table->string('alamatKaryawan');
+            $table->string('sertifikasiKaryawan');
             $table->string('wargaNegara');
             $table->enum('jenisKelamin', [
                 '0', // perempuan
