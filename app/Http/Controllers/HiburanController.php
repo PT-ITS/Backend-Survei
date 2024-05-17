@@ -57,7 +57,6 @@ class HiburanController extends Controller
                 'hiburan.pendidikanPj' => 'required',
                 'hiburan.teleponPj' => 'required',
                 'hiburan.wargaNegaraPj' => 'required',
-                'hiburan.surveyor_id' => 'required',
             ]);
 
             // Validasi data karyawan
@@ -78,6 +77,7 @@ class HiburanController extends Controller
                 // Simpan data hiburan
                 $hiburan = new Hiburan();
                 $hiburan->fill($request->hiburan);
+                $hiburan->surveyor_id = auth()->user()->id;
                 $hiburan->save();
 
                 // Simpan data karyawan

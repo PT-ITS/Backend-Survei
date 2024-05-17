@@ -57,7 +57,6 @@ class FnbController extends Controller
                 'fnb.pendidikanPj' => 'required',
                 'fnb.teleponPj' => 'required',
                 'fnb.wargaNegaraPj' => 'required',
-                'fnb.surveyor_id' => 'required',
             ]);
 
             // Validasi data karyawan
@@ -78,6 +77,7 @@ class FnbController extends Controller
                 // Simpan data fnb
                 $fnb = new Fnb();
                 $fnb->fill($request->fnb);
+                $fnb->surveyor_id = auth()->user()->id;
                 $fnb->save();
 
                 // Simpan data karyawan

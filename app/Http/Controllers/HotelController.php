@@ -58,7 +58,6 @@ class HotelController extends Controller
                 'hotel.pendidikanPj' => 'required',
                 'hotel.teleponPj' => 'required',
                 'hotel.wargaNegaraPj' => 'required',
-                'hotel.surveyor_id' => 'required',
             ]);
 
             // Validasi data karyawan
@@ -79,6 +78,7 @@ class HotelController extends Controller
                 // Simpan data hotel
                 $hotel = new Hotel();
                 $hotel->fill($request->hotel);
+                $hotel->surveyor_id = auth()->user()->id; // Set surveyor_id here
                 $hotel->save();
 
                 // Simpan data karyawan
@@ -104,7 +104,7 @@ class HotelController extends Controller
         }
     }
 
-    
+
     // $result = $this->hotelService->inputDataHotel($validateData);
     // return response()->json([
     //     'message' => $result['message']
