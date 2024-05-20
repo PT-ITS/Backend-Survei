@@ -98,14 +98,6 @@ class FnbRepository
         try {
             $fnb = $this->fnbModel->find($id);
             if ($fnb) {
-                $relatedKaryawanIds = DB::table('karyawan_fnbs')
-                    ->where('fnb_id', $id)
-                    ->pluck('karyawan_id')
-                    ->toArray();
-
-                // Delete related karyawan entries
-                DB::table('karyawans')->whereIn('id', $relatedKaryawanIds)->delete();
-
                 $fnb->update($requestData);
                 return [
                     "statusCode" => 200,
@@ -129,6 +121,14 @@ class FnbRepository
         try {
             $fnb = $this->fnbModel->find($id);
             if ($fnb) {
+                $relatedKaryawanIds = DB::table('karyawan_fnbs')
+                    ->where('fnb_id', $id)
+                    ->pluck('karyawan_id')
+                    ->toArray();
+
+                // Delete related karyawan entries
+                DB::table('karyawans')->whereIn('id', $relatedKaryawanIds)->delete();
+
                 $fnb->delete();
                 return [
                     "statusCode" => 200,

@@ -133,7 +133,10 @@ class FnbController extends Controller
     public function updateFnb(Request $request, $id)
     {
         $validateData = $request->validate([
+            'nib' => 'required',
             'namaFnb' => 'required',
+            'resiko' => 'required',
+            'skalaUsaha' => 'required',
             'alamat' => 'required',
             'koordinat' => 'required',
             'namaPj' => 'required',

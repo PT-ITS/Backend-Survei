@@ -98,7 +98,10 @@ class HotelRepository
     {
         try {
             $dataHotel = $this->hotelModel->find($id);
+            $dataHotel->nib = $dataRequest['nib'];
             $dataHotel->namaHotel = $dataRequest['namaHotel'];
+            $dataHotel->resiko = $dataRequest['resiko'];
+            $dataHotel->skalaUsaha = $dataRequest['skalaUsaha'];
             $dataHotel->bintangHotel = $dataRequest['bintangHotel'];
             $dataHotel->kamarVip = $dataRequest['kamarVip'];
             $dataHotel->kamarStandart = $dataRequest['kamarStandart'];

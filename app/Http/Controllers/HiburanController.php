@@ -132,7 +132,10 @@ class HiburanController extends Controller
     public function updateHiburan(Request $request, $id)
     {
         $validateData = $request->validate([
+            'nib' => 'required',
             'namaHiburan' => 'required',
+            'resiko' => 'required',
+            'skalaUsaha' => 'required',
             'alamat' => 'required',
             'koordinat' => 'required',
             'namaPj' => 'required',
