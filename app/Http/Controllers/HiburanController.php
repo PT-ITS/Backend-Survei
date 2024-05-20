@@ -49,7 +49,10 @@ class HiburanController extends Controller
         try {
             // Validasi data hiburan
             $validateHiburanData = $request->validate([
+                'hiburan.nib' => 'required',
                 'hiburan.namaHiburan' => 'required',
+                'hiburan.resiko' => 'required',
+                'hiburan.skalaUsaha' => 'required',
                 'hiburan.alamat' => 'required',
                 'hiburan.koordinat' => 'required',
                 'hiburan.namaPj' => 'required',

@@ -10,7 +10,10 @@ class Hiburan extends Model
     use HasFactory;
 
     protected $fillable = [
+        'nib',
         'namaHiburan',
+        'resiko',
+        'skalaUsaha',
         'alamat',
         'koordinat',
         'namaPj',

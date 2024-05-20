@@ -49,7 +49,10 @@ class FnbController extends Controller
         try {
             // Validasi data fnb
             $validateFnbData = $request->validate([
+                'fnb.nib' => 'required',
                 'fnb.namaFnb' => 'required',
+                'fnb.resiko' => 'required',
+                'fnb.skalaUsaha' => 'required',
                 'fnb.alamat' => 'required',
                 'fnb.koordinat' => 'required',
                 'fnb.namaPj' => 'required',

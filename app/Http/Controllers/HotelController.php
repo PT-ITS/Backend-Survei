@@ -47,10 +47,13 @@ class HotelController extends Controller
         try {
             // Validasi data hotel
             $validateHotelData = $request->validate([
+                'hotel.nib' => 'required',
                 'hotel.namaHotel' => 'required',
                 'hotel.bintangHotel' => 'required',
                 'hotel.kamarVip' => 'required',
                 'hotel.kamarStandart' => 'required',
+                'hotel.resiko' => 'required',
+                'hotel.skalaUsaha' => 'required',
                 'hotel.alamat' => 'required',
                 'hotel.koordinat' => 'required',
                 'hotel.namaPj' => 'required',
@@ -84,7 +87,7 @@ class HotelController extends Controller
                 foreach ($request->karyawan as $karyawanData) {
                     $karyawan = new Karyawan();
                     $karyawan->fill($karyawanData);
-                    $karyawan->surveyor_id = auth()->user()->id; 
+                    $karyawan->surveyor_id = auth()->user()->id;
                     $karyawan->save();
 
                     $karyawanHotel = new KaryawanHotel();

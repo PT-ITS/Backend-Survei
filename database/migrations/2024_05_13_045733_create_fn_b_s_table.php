@@ -15,7 +15,10 @@ class CreateFnBSTable extends Migration
     {
         Schema::create('fn_b_s', function (Blueprint $table) {
             $table->id();
+            $table->string('nib');
             $table->string('namaFnb');
+            $table->string('resiko');
+            $table->string('skalaUsaha');
             $table->string('alamat');
             $table->string('koordinat');
             $table->string('namaPj');

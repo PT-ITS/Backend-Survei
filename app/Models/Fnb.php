@@ -10,7 +10,10 @@ class FnB extends Model
     use HasFactory;
 
     protected $fillable = [
+        'nib',
         'namaFnb',
+        'resiko',
+        'skalaUsaha',
         'alamat',
         'koordinat',
         'namaPj',

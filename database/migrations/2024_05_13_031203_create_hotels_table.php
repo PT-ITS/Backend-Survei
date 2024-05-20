@@ -15,10 +15,13 @@ class CreateHotelsTable extends Migration
     {
         Schema::create('hotels', function (Blueprint $table) {
             $table->id();
+            $table->string('nib');
             $table->string('namaHotel');
             $table->string('bintangHotel');
             $table->string('kamarVip');
             $table->string('kamarStandart');
+            $table->string('resiko');
+            $table->string('skalaUsaha');
             $table->string('alamat');
             $table->string('koordinat');
             $table->string('namaPj');

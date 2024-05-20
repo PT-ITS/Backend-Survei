@@ -15,7 +15,10 @@ class CreateHiburansTable extends Migration
     {
         Schema::create('hiburans', function (Blueprint $table) {
             $table->id();
+            $table->string('nib');
             $table->string('namaHiburan');
+            $table->string('resiko');
+            $table->string('skalaUsaha');
             $table->string('alamat');
             $table->string('koordinat');
             $table->string('namaPj');
