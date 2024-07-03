@@ -106,7 +106,7 @@ class KaryawanRepository
         try {
             $dataKaryawan = $this->karyawanModel->find($id);
             $dataKaryawan->namaKaryawan = $dataRequest['namaKaryawan'];
-            $dataKaryawan->nikKaryawan = $dataRequest['nikKaryawan'];
+            // $dataKaryawan->nikKaryawan = $dataRequest['nikKaryawan'];
             $dataKaryawan->pendidikanKaryawan = $dataRequest['pendidikanKaryawan'];
             $dataKaryawan->jabatanKaryawan = $dataRequest['jabatanKaryawan'];
             $dataKaryawan->alamatKaryawan = $dataRequest['alamatKaryawan'];
