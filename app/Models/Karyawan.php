@@ -11,7 +11,7 @@ class Karyawan extends Model
 
     protected $fillable = [
         'namaKaryawan',
-        'nikKaryawan',
+        // 'nikKaryawan',
         'pendidikanKaryawan',
         'jabatanKaryawan',
         'alamatKaryawan',

@@ -54,7 +54,7 @@ class KaryawanController extends Controller
     {
         $validateData = $request->validate([
             'namaKaryawan' => 'required',
-            'nikKaryawan' => 'required',
+            // 'nikKaryawan' => 'required',
             'pendidikanKaryawan' => 'required',
             'jabatanKaryawan' => 'required',
             'alamatKaryawan' => 'required',
@@ -77,7 +77,7 @@ class KaryawanController extends Controller
     {
         $validateData = $request->validate([
             'namaKaryawan' => 'required',
-            'nikKaryawan' => 'required',
+            // 'nikKaryawan' => 'required',
             'pendidikanKaryawan' => 'required',
             'jabatanKaryawan' => 'required',
             'alamatKaryawan' => 'required',

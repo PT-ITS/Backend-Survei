@@ -65,7 +65,7 @@ class HiburanController extends Controller
             // Validasi data karyawan
             $validateKaryawanData = $request->validate([
                 'karyawan.*.namaKaryawan' => 'required',
-                'karyawan.*.nikKaryawan' => 'required',
+                // 'karyawan.*.nikKaryawan' => 'required',
                 'karyawan.*.pendidikanKaryawan' => 'required',
                 'karyawan.*.jabatanKaryawan' => 'required',
                 'karyawan.*.alamatKaryawan' => 'required',
@@ -132,7 +132,10 @@ class HiburanController extends Controller
     public function updateHiburan(Request $request, $id)
     {
         $validateData = $request->validate([
+            'nib' => 'required',
             'namaHiburan' => 'required',
+            'resiko' => 'required',
+            'skalaUsaha' => 'required',
             'alamat' => 'required',
             'koordinat' => 'required',
             'namaPj' => 'required',

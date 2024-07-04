@@ -66,7 +66,7 @@ class HotelController extends Controller
             // Validasi data karyawan
             $validateKaryawanData = $request->validate([
                 'karyawan.*.namaKaryawan' => 'required',
-                'karyawan.*.nikKaryawan' => 'required',
+                // 'karyawan.*.nikKaryawan' => 'required',
                 'karyawan.*.pendidikanKaryawan' => 'required',
                 'karyawan.*.jabatanKaryawan' => 'required',
                 'karyawan.*.alamatKaryawan' => 'required',
@@ -117,7 +117,10 @@ class HotelController extends Controller
     public function updateDataHotel(Request $request, $id)
     {
         $validateData = $request->validate([
+            'nib' => 'required',
             'namaHotel' => 'required',
+            'resiko' => 'required',
+            'skalaUsaha' => 'required',
             'bintangHotel' => 'required',
             'kamarVip' => 'required',
             'kamarStandart' => 'required',
