@@ -22,5 +22,6 @@ class FnB extends Model
         'teleponPj',
         'wargaNegaraPj',
         'surveyor_id',
+        'created_at'
     ];
 }

@@ -25,5 +25,16 @@ class Hotel extends Model
         'teleponPj',
         'wargaNegaraPj',
         'surveyor_id',
+        'created_at'
     ];
+
+    public function surveyor()
+    {
+        return $this->belongsTo(User::class, 'surveyor_id');
+    }
+
+    public function karyawans()
+    {
+        return $this->belongsToMany(Karyawan::class, 'karyawan_hotels');
+    }
 }

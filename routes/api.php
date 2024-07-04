@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HiburanController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\ImportDataController;
 
 Route::group([
     'prefix' => 'auth'
@@ -103,3 +104,8 @@ Route::group([
         Route::delete('delete-karyawan/{id}', [KaryawanController::class, 'deleteDataKaryawan']);
     });
 });
+
+
+// test
+Route::post('import-hotel', [ImportDataController::class, 'importDataHotel']);
+Route::get('/log', [DashboardController::class, 'log']);

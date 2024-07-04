@@ -32,6 +32,11 @@ class User extends Authenticatable implements JWTSubject
         'status',
     ];
 
+    public function hotels()
+    {
+        return $this->hasMany(Hotel::class, 'surveyor_id');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
