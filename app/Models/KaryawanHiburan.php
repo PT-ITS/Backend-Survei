@@ -12,5 +12,6 @@ class KaryawanHiburan extends Model
     protected $fillable = [
         'karyawan_id',
         'hiburan_id',
+        'created_at'
     ];
 }

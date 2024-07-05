@@ -12,5 +12,6 @@ class KaryawanFnb extends Model
     protected $fillable = [
         'karyawan_id',
         'fnb_id',
+        'created_at'
     ];
 }

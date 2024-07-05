@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hotel;
 use Illuminate\Http\Request;
 use App\Http\Services\DashboardService;
 
@@ -61,5 +62,17 @@ class DashboardController extends Controller
             ],
             $result['statusCode']
         );
+    }
+
+    public function log()
+    {
+        $hotels = Hotel::join('users', 'hotels.surveyor_id', '=', 'users.id')
+            ->select('hotels.*', 'users.name as surveyor_name', 'users.email as surveyor_email')
+            ->get();
+
+        return response()->json([
+            'message' => 'Data hotel berhasil diambil.',
+            'data' => $hotels,
+        ]);
     }
 }

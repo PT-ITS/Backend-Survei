@@ -18,6 +18,7 @@ class Karyawan extends Model
         'sertifikasiKaryawan',
         'wargaNegara',
         'surveyor_id',
-        'jenisKelamin'
+        'jenisKelamin',
+        'created_at'
     ];
 }
