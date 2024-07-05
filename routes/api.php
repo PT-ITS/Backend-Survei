@@ -98,7 +98,9 @@ Route::group([
         Route::get('list-karyawan-hotel/{id}', [KaryawanController::class, 'listKaryawanHotel']);
         Route::get('list-karyawan-hiburan/{id}', [KaryawanController::class, 'listKaryawanHiburan']);
         Route::get('list-karyawan-fnb/{id}', [KaryawanController::class, 'listKaryawanFnb']);
-        Route::post('input-karyawan', [KaryawanController::class, 'inputDataKaryawan']);
+        Route::post('input-karyawan-hotel', [KaryawanController::class, 'inputDataKaryawanHotel']);
+        Route::post('input-karyawan-hiburan', [KaryawanController::class, 'inputDataKaryawanHiburan']);
+        Route::post('input-karyawan-fnb', [KaryawanController::class, 'inputDataKaryawanFnb']);
         Route::post('update-karyawan/{id}', [KaryawanController::class, 'updateDataKaryawan']);
         Route::delete('delete-karyawan/{id}', [KaryawanController::class, 'deleteDataKaryawan']);
     });

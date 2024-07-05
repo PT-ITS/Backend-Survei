@@ -49,10 +49,34 @@ class KaryawanService
         }
     }
 
-    public function inputDataKaryawan($dataRequest)
+    public function inputDataKaryawanHotel($dataRequest)
     {
         try {
-            return $this->karyawanRepository->inputDataKaryawan($dataRequest);
+            return $this->karyawanRepository->inputDataKaryawanHotel($dataRequest);
+        } catch (\Exception $e) {
+            return [
+                "statusCode" => 401,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
+
+    public function inputDataKaryawanHiburan($dataRequest)
+    {
+        try {
+            return $this->karyawanRepository->inputDataKaryawanHiburan($dataRequest);
+        } catch (\Exception $e) {
+            return [
+                "statusCode" => 401,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
+
+    public function inputDataKaryawanFnb($dataRequest)
+    {
+        try {
+            return $this->karyawanRepository->inputDataKaryawanFnb($dataRequest);
         } catch (\Exception $e) {
             return [
                 "statusCode" => 401,

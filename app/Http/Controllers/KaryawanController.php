@@ -50,7 +50,7 @@ class KaryawanController extends Controller
         );
     }
 
-    public function inputDataKaryawan(Request $request)
+    public function inputDataKaryawanHotel(Request $request)
     {
         $validateData = $request->validate([
             'namaKaryawan' => 'required',
@@ -60,11 +60,57 @@ class KaryawanController extends Controller
             'alamatKaryawan' => 'required',
             'sertifikasiKaryawan' => 'required',
             'wargaNegara' => 'required',
-            'surveyor_id' => 'required',
             'jenisKelamin' => 'required',
+            'hotel_id' => 'required',
         ]);
 
-        $result = $this->karyawanService->inputDataKaryawan($validateData);
+        $result = $this->karyawanService->inputDataKaryawanHotel($validateData);
+        return response()->json(
+            [
+                'message' => $result['message']
+            ],
+            $result['statusCode']
+        );
+    }
+
+    public function inputDataKaryawanHiburan(Request $request)
+    {
+        $validateData = $request->validate([
+            'namaKaryawan' => 'required',
+            // 'nikKaryawan' => 'required',
+            'pendidikanKaryawan' => 'required',
+            'jabatanKaryawan' => 'required',
+            'alamatKaryawan' => 'required',
+            'sertifikasiKaryawan' => 'required',
+            'wargaNegara' => 'required',
+            'jenisKelamin' => 'required',
+            'hiburan_id' => 'required',
+        ]);
+
+        $result = $this->karyawanService->inputDataKaryawanHiburan($validateData);
+        return response()->json(
+            [
+                'message' => $result['message']
+            ],
+            $result['statusCode']
+        );
+    }
+
+    public function inputDataKaryawanFnb(Request $request)
+    {
+        $validateData = $request->validate([
+            'namaKaryawan' => 'required',
+            // 'nikKaryawan' => 'required',
+            'pendidikanKaryawan' => 'required',
+            'jabatanKaryawan' => 'required',
+            'alamatKaryawan' => 'required',
+            'sertifikasiKaryawan' => 'required',
+            'wargaNegara' => 'required',
+            'jenisKelamin' => 'required',
+            'fnb_id' => 'required',
+        ]);
+
+        $result = $this->karyawanService->inputDataKaryawanFnb($validateData);
         return response()->json(
             [
                 'message' => $result['message']

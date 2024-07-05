@@ -6,6 +6,7 @@ use App\Models\Karyawan;
 use App\Models\KaryawanHotel;
 use App\Models\KaryawanHiburan;
 use App\Models\KaryawanFnb;
+use Illuminate\Support\Facades\DB;
 
 class KaryawanRepository
 {
@@ -85,17 +86,136 @@ class KaryawanRepository
         }
     }
 
-    public function inputDataKaryawan($dataRequest)
+    public function inputDataKaryawanHotel($dataRequest)
     {
+        DB::beginTransaction();
         try {
-            $result = $this->karyawanModel->insert($dataRequest);
+            // Insert data into Karyawan table
+            $karyawan = $this->karyawanModel->create([
+                'namaKaryawan' => $dataRequest['namaKaryawan'],
+                'pendidikanKaryawan' => $dataRequest['pendidikanKaryawan'],
+                'jabatanKaryawan' => $dataRequest['jabatanKaryawan'],
+                'alamatKaryawan' => $dataRequest['alamatKaryawan'],
+                'sertifikasiKaryawan' => $dataRequest['sertifikasiKaryawan'],
+                'wargaNegara' => $dataRequest['wargaNegara'],
+                'jenisKelamin' => $dataRequest['jenisKelamin'],
+                'surveyor_id' => auth()->user()->id
+            ]);
+
+            // Check if the Karyawan record was created
+            if (!$karyawan) {
+                DB::rollBack();
+                return [
+                    "statusCode" => 500,
+                    "message" => "Terjadi kesalahan saat menyimpan data Karyawan"
+                ];
+            }
+
+            // Insert data into KaryawanHotel table using the created karyawan_id
+            KaryawanHotel::create([
+                'karyawan_id' => $karyawan->id,
+                'hotel_id' => $dataRequest['hotel_id']
+            ]);
+
+            DB::commit();
             return [
                 "statusCode" => 201,
-                "message" => 'input data karyawan success'
+                "message" => "Data karyawan berhasil disimpan"
             ];
         } catch (\Exception $e) {
+            DB::rollBack();
             return [
-                "statusCode" => 401,
+                "statusCode" => 500,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
+
+    public function inputDataKaryawanHiburan($dataRequest)
+    {
+        DB::beginTransaction();
+        try {
+            // Insert data into Karyawan table
+            $karyawan = $this->karyawanModel->create([
+                'namaKaryawan' => $dataRequest['namaKaryawan'],
+                'pendidikanKaryawan' => $dataRequest['pendidikanKaryawan'],
+                'jabatanKaryawan' => $dataRequest['jabatanKaryawan'],
+                'alamatKaryawan' => $dataRequest['alamatKaryawan'],
+                'sertifikasiKaryawan' => $dataRequest['sertifikasiKaryawan'],
+                'wargaNegara' => $dataRequest['wargaNegara'],
+                'jenisKelamin' => $dataRequest['jenisKelamin'],
+                'surveyor_id' => auth()->user()->id
+            ]);
+
+            // Check if the Karyawan record was created
+            if (!$karyawan) {
+                DB::rollBack();
+                return [
+                    "statusCode" => 500,
+                    "message" => "Terjadi kesalahan saat menyimpan data Karyawan"
+                ];
+            }
+
+            // Insert data into KaryawanHiburan table using the created karyawan_id
+            KaryawanHiburan::create([
+                'karyawan_id' => $karyawan->id,
+                'hiburan_id' => $dataRequest['hiburan_id']
+            ]);
+
+            DB::commit();
+            return [
+                "statusCode" => 201,
+                "message" => "Data karyawan berhasil disimpan"
+            ];
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return [
+                "statusCode" => 500,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
+
+    public function inputDataKaryawanFnb($dataRequest)
+    {
+        DB::beginTransaction();
+        try {
+            // Insert data into Karyawan table
+            $karyawan = $this->karyawanModel->create([
+                'namaKaryawan' => $dataRequest['namaKaryawan'],
+                'pendidikanKaryawan' => $dataRequest['pendidikanKaryawan'],
+                'jabatanKaryawan' => $dataRequest['jabatanKaryawan'],
+                'alamatKaryawan' => $dataRequest['alamatKaryawan'],
+                'sertifikasiKaryawan' => $dataRequest['sertifikasiKaryawan'],
+                'wargaNegara' => $dataRequest['wargaNegara'],
+                'jenisKelamin' => $dataRequest['jenisKelamin'],
+                'surveyor_id' => auth()->user()->id
+            ]);
+
+            // Check if the Karyawan record was created
+            if (!$karyawan) {
+                DB::rollBack();
+                return [
+                    "statusCode" => 500,
+                    "message" => "Terjadi kesalahan saat menyimpan data Karyawan"
+                ];
+            }
+
+            // Insert data into KaryawanFnb table using the created karyawan_id
+            KaryawanFnb::create([
+                'karyawan_id' => $karyawan->id,
+                'fnb_id' => $dataRequest['fnb_id']
+            ]);
+
+            DB::commit();
+            return [
+                "statusCode" => 201,
+                "message" => "Data karyawan berhasil disimpan"
+            ];
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return [
+                "statusCode" => 500,
                 "message" => $e->getMessage()
             ];
         }
