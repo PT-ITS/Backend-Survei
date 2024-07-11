@@ -25,13 +25,14 @@ class CreateHotelsTable extends Migration
             $table->string('alamat');
             $table->string('koordinat');
             $table->string('namaPj');
-            $table->string('emailPj')->nullable();
-            $table->string('passwordPj')->nullable();
+            $table->string('emailPj');
+            $table->string('passwordPj');
             $table->string('nikPj');
             $table->string('pendidikanPj');
             $table->string('teleponPj');
             $table->string('wargaNegaraPj');
             $table->foreignId('surveyor_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('pj_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

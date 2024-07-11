@@ -27,6 +27,7 @@ class Hotel extends Model
         'teleponPj',
         'wargaNegaraPj',
         'surveyor_id',
+        'pj_id',
         'created_at'
     ];
 

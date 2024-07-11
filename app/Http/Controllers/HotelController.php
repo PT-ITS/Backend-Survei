@@ -44,71 +44,78 @@ class HotelController extends Controller
 
     public function inputDataHotelAndKaryawan(Request $request)
     {
+        // Validasi data hotel
+        $validatedHotelData = $request->validate([
+            'hotel.nib' => 'required',
+            'hotel.namaHotel' => 'required',
+            'hotel.bintangHotel' => 'required',
+            'hotel.kamarVip' => 'required',
+            'hotel.kamarStandart' => 'required',
+            'hotel.resiko' => 'required',
+            'hotel.skalaUsaha' => 'required',
+            'hotel.alamat' => 'required',
+            'hotel.koordinat' => 'required',
+            'hotel.namaPj' => 'required',
+            'hotel.emailPj' => 'required|email',
+            'hotel.passwordPj' => 'required',
+            'hotel.nikPj' => 'required',
+            'hotel.pendidikanPj' => 'required',
+            'hotel.teleponPj' => 'required',
+            'hotel.wargaNegaraPj' => 'required',
+        ]);
+    
+        // Validasi data karyawan
+        $validatedKaryawanData = $request->validate([
+            'karyawan.*.namaKaryawan' => 'required',
+            'karyawan.*.pendidikanKaryawan' => 'required',
+            'karyawan.*.jabatanKaryawan' => 'required',
+            'karyawan.*.alamatKaryawan' => 'required',
+            'karyawan.*.wargaNegara' => 'required',
+            'karyawan.*.jenisKelamin' => 'required',
+        ]);
+    
+        DB::beginTransaction();
+    
         try {
-            // Validasi data hotel
-            $validateHotelData = $request->validate([
-                'hotel.nib' => 'required',
-                'hotel.namaHotel' => 'required',
-                'hotel.bintangHotel' => 'required',
-                'hotel.kamarVip' => 'required',
-                'hotel.kamarStandart' => 'required',
-                'hotel.resiko' => 'required',
-                'hotel.skalaUsaha' => 'required',
-                'hotel.alamat' => 'required',
-                'hotel.koordinat' => 'required',
-                'hotel.namaPj' => 'required',
-                'hotel.emailPj' => 'required',
-                'hotel.passwordPj' => 'required',
-                'hotel.nikPj' => 'required',
-                'hotel.pendidikanPj' => 'required',
-                'hotel.teleponPj' => 'required',
-                'hotel.wargaNegaraPj' => 'required',
-            ]);
-
-            // Validasi data karyawan
-            $validateKaryawanData = $request->validate([
-                'karyawan.*.namaKaryawan' => 'required',
-                // 'karyawan.*.nikKaryawan' => 'required',
-                'karyawan.*.pendidikanKaryawan' => 'required',
-                'karyawan.*.jabatanKaryawan' => 'required',
-                'karyawan.*.alamatKaryawan' => 'required',
-                'karyawan.*.wargaNegara' => 'required',
-                'karyawan.*.jenisKelamin' => 'required',
-            ]);
-
-            DB::beginTransaction();
-
-            try {
-                // Simpan data hotel
-                $hotel = new Hotel();
-                $hotel->fill($request->hotel);
-                $hotel->surveyor_id = auth()->user()->id; // Set surveyor_id here
-                $hotel->save();
-
-                // Simpan data karyawan
-                foreach ($request->karyawan as $karyawanData) {
-                    $karyawan = new Karyawan();
-                    $karyawan->fill($karyawanData);
-                    $karyawan->surveyor_id = auth()->user()->id;
-                    $karyawan->save();
-
-                    $karyawanHotel = new KaryawanHotel();
-                    $karyawanHotel->karyawan_id = $karyawan->id;
-                    $karyawanHotel->hotel_id = $hotel->id;
-                    $karyawanHotel->save();
-                }
-
-                DB::commit();
-                return response()->json(['message' => 'Data hotel dan karyawan berhasil disimpan'], 201);
-            } catch (\Exception $e) {
-                DB::rollBack();
-                return response()->json(['message' => 'Terjadi kesalahan saat menyimpan data', 'error' => $e->getMessage()], 500);
+            // Simpan data user PJ
+            $user = new User();
+            $user->name = $validatedHotelData['hotel']['namaPj'];
+            $user->email = $validatedHotelData['hotel']['emailPj'];
+            $user->password = bcrypt($validatedHotelData['hotel']['passwordPj']);
+            $user->alamat = $validatedHotelData['hotel']['alamat'];
+            $user->noHP = $validatedHotelData['hotel']['teleponPj'];
+            $user->level = '2';
+            $user->status = '1';
+            $user->save();
+    
+            // Simpan data hotel
+            $hotel = new Hotel();
+            $hotel->fill($validatedHotelData['hotel']);
+            $hotel->surveyor_id = auth()->user()->id; // Set surveyor_id here
+            $hotel->pj_id = $user->id; // Set pj_id here
+            $hotel->save();
+    
+            // Simpan data karyawan
+            foreach ($validatedKaryawanData['karyawan'] as $karyawanData) {
+                $karyawan = new Karyawan();
+                $karyawan->fill($karyawanData);
+                $karyawan->surveyor_id = auth()->user()->id;
+                $karyawan->save();
+    
+                $karyawanHotel = new KaryawanHotel();
+                $karyawanHotel->karyawan_id = $karyawan->id;
+                $karyawanHotel->hotel_id = $hotel->id;
+                $karyawanHotel->save();
             }
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return response()->json(['message' => 'Validation failed', 'errors' => $e->errors()], 422);
+    
+            DB::commit();
+            return response()->json(['message' => 'Data hotel dan karyawan berhasil disimpan'], 201);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => 'Terjadi kesalahan saat menyimpan data', 'error' => $e->getMessage()], 500);
         }
     }
-
+    
 
     // $result = $this->hotelService->inputDataHotel($validateData);
     // return response()->json([
