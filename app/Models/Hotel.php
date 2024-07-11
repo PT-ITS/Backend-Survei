@@ -20,6 +20,8 @@ class Hotel extends Model
         'alamat',
         'koordinat',
         'namaPj',
+        'emailPj',
+        'passwordPj',
         'nikPj',
         'pendidikanPj',
         'teleponPj',

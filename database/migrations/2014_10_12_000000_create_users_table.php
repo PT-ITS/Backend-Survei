@@ -23,7 +23,8 @@ class CreateUsersTable extends Migration
             $table->string('noHP');
             $table->enum('level', [
                 '0', // surveyour
-                '1' // admin
+                '1', // admin
+                '2' // pengelola usaha
                 ])->default('0');
             $table->enum('status', [
                 '-', // belum verifikasi

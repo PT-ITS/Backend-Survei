@@ -25,6 +25,8 @@ class CreateHotelsTable extends Migration
             $table->string('alamat');
             $table->string('koordinat');
             $table->string('namaPj');
+            $table->string('emailPj')->nullable();
+            $table->string('passwordPj')->nullable();
             $table->string('nikPj');
             $table->string('pendidikanPj');
             $table->string('teleponPj');

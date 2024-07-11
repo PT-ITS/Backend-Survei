@@ -108,6 +108,8 @@ class HotelRepository
             $dataHotel->alamat = $dataRequest['alamat'];
             $dataHotel->koordinat = $dataRequest['koordinat'];
             $dataHotel->namaPj = $dataRequest['namaPj'];
+            $dataHotel->emailPj = $dataRequest['emailPj'];
+            $dataHotel->passwordPj = $dataRequest['passwordPj'];
             $dataHotel->nikPj = $dataRequest['nikPj'];
             $dataHotel->pendidikanPj = $dataRequest['pendidikanPj'];
             $dataHotel->teleponPj = $dataRequest['teleponPj'];
