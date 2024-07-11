@@ -5,6 +5,7 @@ namespace App\Http\Repositories;
 use App\Models\Hotel;
 use App\Models\Karyawan;
 use App\Models\KaryawanHotel;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class HotelRepository
@@ -96,6 +97,7 @@ class HotelRepository
 
     public function updateDataHotel($dataRequest, $id)
     {
+        DB::beginTransaction();
         try {
             $dataHotel = $this->hotelModel->find($id);
             $dataHotel->nib = $dataRequest['nib'];
@@ -117,11 +119,18 @@ class HotelRepository
             $dataHotel->surveyor_id = $dataRequest['surveyor_id'];
             $dataHotel->save();
 
+            $dataUser = User::find($dataHotel->pj_id);
+            $dataUser->email = $dataRequest['emailPj'];
+            $dataUser->password = bcrypt($dataRequest['passwordPj']);
+            $dataUser->save();
+
+            DB::commit();
             return [
                 "statusCode" => 200,
                 "message" => 'update data hotel success'
             ];
         } catch (\Exception $e) {
+            DB::rollBack();
             return [
                 "statusCode" => 401,
                 "message" => $e->getMessage()

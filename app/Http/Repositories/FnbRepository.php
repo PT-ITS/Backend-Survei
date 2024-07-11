@@ -5,6 +5,7 @@ namespace App\Http\Repositories;
 use App\Models\Fnb;
 use App\Models\Karyawan;
 use App\Models\KaryawanFnb;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class FnbRepository
@@ -95,20 +96,31 @@ class FnbRepository
 
     public function updateFnb($requestData, $id)
     {
+        DB::beginTransaction();
         try {
             $fnb = $this->fnbModel->find($id);
             if ($fnb) {
                 $fnb->update($requestData);
+
+                $dataUser = User::find($fnb->pj_id);
+                $dataUser->email = $requestData['emailPj'];
+                $dataUser->password = bcrypt($requestData['passwordPj']);
+                $dataUser->save();
+
+                DB::commit();
                 return [
                     "statusCode" => 200,
                     "message" => 'update data fnb success'
                 ];
             }
+
+            DB::rollBack();
             return [
                 "statusCode" => 404,
                 "message" => 'data fnb tidak ditemukan'
             ];
         } catch (\Exception  $e) {
+            DB::rollBack();
             return [
                 "statusCode" => 401,
                 "message" => $e->getMessage()

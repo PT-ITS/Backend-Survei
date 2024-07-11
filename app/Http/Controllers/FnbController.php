@@ -98,7 +98,7 @@ class FnbController extends Controller
                 $fnb->save();
 
                 // Simpan data karyawan
-                foreach ($validateFnbData['karyawan'] as $karyawanData) {
+                foreach ($validateKaryawanData['karyawan'] as $karyawanData) {
                     $karyawan = new Karyawan();
                     $karyawan->fill($karyawanData);
                     $karyawan->surveyor_id = auth()->user()->id;

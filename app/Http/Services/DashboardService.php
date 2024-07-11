@@ -51,4 +51,17 @@ class DashboardService
             ];
         }
     }
+
+    public function listAllByPengelola()
+    {
+        try {
+            return $this->dashboardRepository->listAllByPengelola();
+        } catch (\Exception $e) {
+            return [
+                "statusCode" => 401,
+                "data" => [],
+                "message" => $e->getMessage()
+            ];
+        }
+    }
 }
