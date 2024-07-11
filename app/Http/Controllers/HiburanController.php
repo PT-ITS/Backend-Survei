@@ -7,6 +7,7 @@ use App\Http\Services\HiburanService;
 use App\Models\Hiburan;
 use App\Models\Karyawan;
 use App\Models\KaryawanHiburan;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -56,6 +57,8 @@ class HiburanController extends Controller
                 'hiburan.alamat' => 'required',
                 'hiburan.koordinat' => 'required',
                 'hiburan.namaPj' => 'required',
+                'hiburan.namaPj' => 'required',
+                'hiburan.emailPj' => 'required|email',
                 'hiburan.nikPj' => 'required',
                 'hiburan.pendidikanPj' => 'required',
                 'hiburan.teleponPj' => 'required',
@@ -76,14 +79,26 @@ class HiburanController extends Controller
             DB::beginTransaction();
 
             try {
+                // Simpan data user PJ
+                $user = new User();
+                $user->name = $validateHiburanData['hiburan']['namaPj'];
+                $user->email = $validateHiburanData['hiburan']['emailPj'];
+                $user->password = bcrypt($validateHiburanData['hiburan']['passwordPj']);
+                $user->alamat = $validateHiburanData['hiburan']['alamat'];
+                $user->noHP = $validateHiburanData['hiburan']['teleponPj'];
+                $user->level = '2';
+                $user->status = '1';
+                $user->save();
+
                 // Simpan data hiburan
                 $hiburan = new Hiburan();
-                $hiburan->fill($request->hiburan);
+                $hiburan->fill($validateHiburanData['hiburan']);
                 $hiburan->surveyor_id = auth()->user()->id;
+                $hiburan->pj_id = $user->id;
                 $hiburan->save();
 
                 // Simpan data karyawan
-                foreach ($request->karyawan as $karyawanData) {
+                foreach ($validateKaryawanData['karyawan'] as $karyawanData) {
                     $karyawan = new Karyawan();
                     $karyawan->fill($karyawanData);
                     $karyawan->surveyor_id = auth()->user()->id;
@@ -139,6 +154,8 @@ class HiburanController extends Controller
             'alamat' => 'required',
             'koordinat' => 'required',
             'namaPj' => 'required',
+            'emailPj' => 'required',
+            'passwordPj' => 'required',
             'nikPj' => 'required',
             'pendidikanPj' => 'required',
             'teleponPj' => 'required',

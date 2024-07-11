@@ -32,7 +32,7 @@ class CreateHotelsTable extends Migration
             $table->string('teleponPj');
             $table->string('wargaNegaraPj');
             $table->foreignId('surveyor_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('pj_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('pj_id')->nullable()->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

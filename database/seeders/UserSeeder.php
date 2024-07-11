@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('12345'),
             'alamat' => 'test',
             'level' => '1',
+            'status' => '1',
             'noHP' => '0812345',
             'created_at' => Carbon::create(2024, 4, 24, 12, 0, 0) // Format: (year, month, day, hour, minute, second)
         ]);
@@ -32,6 +33,16 @@ class UserSeeder extends Seeder
             'password' => Hash::make('12345'),
             'alamat' => 'test',
             'level' => '0',
+            'status' => '1',
+            'noHP' => '0812345'
+        ]);
+        User::create([
+            'name' => 'pengelola',
+            'email' => 'pengelola@gmail.com',
+            'password' => Hash::make('12345'),
+            'alamat' => 'test',
+            'level' => '2',
+            'status' => '1',
             'noHP' => '0812345'
         ]);
     }
