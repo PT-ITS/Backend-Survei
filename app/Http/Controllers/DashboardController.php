@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Hotel;
+use App\Models\Hiburan;
+use App\Models\Fnb;
+use App\Models\KaryawanHotel;
+use App\Models\KaryawanHiburan;
+use App\Models\KaryawanFnb;
 use Illuminate\Http\Request;
 use App\Http\Services\DashboardService;
 
@@ -76,5 +81,25 @@ class DashboardController extends Controller
             'message' => 'Data hotel berhasil diambil.',
             'data' => $hotels,
         ]);
+    }
+
+    public function dashboardUsaha($id)
+    {
+        $dataHotel = Hotel::where('pj_id', $id)->first();
+        $dataHiburan = Hiburan::where('pj_id', $id)->first();
+        $dataFnb = Fnb::where('pj_id', $id)->first();
+
+        if ($dataHotel) {
+            $dataKaryawan = KaryawanHotel::where('hotel_id', $dataHotel->id)->get();
+            return response()->json(['message' => 'success', 'data' => $dataKaryawan]);
+        }else if ($dataHiburan) {
+            $dataKaryawan = KaryawanHiburan::where('hiburan_id', $dataHiburan->id)->get();
+            return response()->json(['message' => 'success', 'data' => $dataKaryawan]);
+        }else if ($dataFnb){
+            $dataKaryawan = KaryawanFnb::where('fnb_id', $dataFnb->id)->get();
+            return response()->json(['message' => 'success', 'data' => $dataKaryawan]);
+        }else {
+            return response()->json(['message' => 'gagal']);
+        }
     }
 }
