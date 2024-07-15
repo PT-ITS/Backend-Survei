@@ -2,6 +2,7 @@
 
 namespace App\Http\Repositories;
 
+use App\Models\User;
 use App\Models\Hotel;
 use App\Models\Karyawan;
 use App\Models\KaryawanHotel;
