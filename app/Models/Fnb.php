@@ -17,11 +17,14 @@ class FnB extends Model
         'alamat',
         'koordinat',
         'namaPj',
+        'emailPj',
+        'passwordPj',
         'nikPj',
         'pendidikanPj',
         'teleponPj',
         'wargaNegaraPj',
         'surveyor_id',
+        'pj_id',
         'created_at'
     ];
 }

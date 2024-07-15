@@ -99,4 +99,31 @@ class DashboardRepository
             ];
         }
     }
+
+    public function listAllByPengelola()
+    {
+        try {
+            $hotelData = Hotel::where('pj_id', auth()->user()->id)->get();
+            $hiburanData = Hiburan::where('pj_id', auth()->user()->id)->get();
+            $fnbData = Fnb::where('pj_id', auth()->user()->id)->get();
+
+            $allData = [
+                "hotel" => $hotelData,
+                "hiburan" => $hiburanData,
+                "fnb" => $fnbData
+            ];
+
+            return [
+                "statusCode" => 200,
+                "data" => $allData,
+                "message" => 'get data berdasarkan surveyor success'
+            ];
+        } catch (\Exception $e) {
+            return [
+                "statusCode" => 401,
+                "data" => [],
+                "message" => $e->getMessage()
+            ];
+        }
+    }
 }

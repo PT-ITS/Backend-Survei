@@ -7,6 +7,7 @@ use App\Http\Services\FnbService;
 use App\Models\Fnb;
 use App\Models\Karyawan;
 use App\Models\KaryawanFnb;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -56,6 +57,8 @@ class FnbController extends Controller
                 'fnb.alamat' => 'required',
                 'fnb.koordinat' => 'required',
                 'fnb.namaPj' => 'required',
+                'fnb.emailPj' => 'required|email',
+                'fnb.passwordPj' => 'required',
                 'fnb.nikPj' => 'required',
                 'fnb.pendidikanPj' => 'required',
                 'fnb.teleponPj' => 'required',
@@ -76,14 +79,26 @@ class FnbController extends Controller
             DB::beginTransaction();
 
             try {
+                // Simpan data user PJ
+                $user = new User();
+                $user->name = $validateFnbData['fnb']['namaPj'];
+                $user->email = $validateFnbData['fnb']['emailPj'];
+                $user->password = bcrypt($validateFnbData['fnb']['passwordPj']);
+                $user->alamat = $validateFnbData['fnb']['alamat'];
+                $user->noHP = $validateFnbData['fnb']['teleponPj'];
+                $user->level = '2';
+                $user->status = '1';
+                $user->save();
+
                 // Simpan data fnb
                 $fnb = new Fnb();
-                $fnb->fill($request->fnb);
+                $fnb->fill($validateFnbData['fnb']);
                 $fnb->surveyor_id = auth()->user()->id;
+                $fnb->pj_id = $user->id;
                 $fnb->save();
 
                 // Simpan data karyawan
-                foreach ($request->karyawan as $karyawanData) {
+                foreach ($validateKaryawanData['karyawan'] as $karyawanData) {
                     $karyawan = new Karyawan();
                     $karyawan->fill($karyawanData);
                     $karyawan->surveyor_id = auth()->user()->id;
@@ -140,6 +155,8 @@ class FnbController extends Controller
             'alamat' => 'required',
             'koordinat' => 'required',
             'namaPj' => 'required',
+            'emailPj' => 'required',
+            'passwordPj' => 'required',
             'nikPj' => 'required',
             'pendidikanPj' => 'required',
             'teleponPj' => 'required',

@@ -57,8 +57,8 @@ class HiburanController extends Controller
                 'hiburan.alamat' => 'required',
                 'hiburan.koordinat' => 'required',
                 'hiburan.namaPj' => 'required',
-                'hiburan.namaPj' => 'required',
                 'hiburan.emailPj' => 'required|email',
+                'hiburan.passwordPj' => 'required',
                 'hiburan.nikPj' => 'required',
                 'hiburan.pendidikanPj' => 'required',
                 'hiburan.teleponPj' => 'required',
@@ -89,16 +89,15 @@ class HiburanController extends Controller
                 $user->level = '2';
                 $user->status = '1';
                 $user->save();
-                
                 // Simpan data hiburan
                 $hiburan = new Hiburan();
-                $hiburan->fill($request->hiburan);
+                $hiburan->fill($validateHiburanData['hiburan']);
                 $hiburan->surveyor_id = auth()->user()->id;
-                $hiburan->pj_id = $user->id; // Set pj_id here
+                $hiburan->pj_id = $user->id;
                 $hiburan->save();
 
                 // Simpan data karyawan
-                foreach ($request->karyawan as $karyawanData) {
+                foreach ($validateKaryawanData['karyawan'] as $karyawanData) {
                     $karyawan = new Karyawan();
                     $karyawan->fill($karyawanData);
                     $karyawan->surveyor_id = auth()->user()->id;

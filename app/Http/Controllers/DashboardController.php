@@ -49,6 +49,8 @@ class DashboardController extends Controller
         // cek level user
         if ($user->level == 1) { // jika admin
             $result = $this->dashboardService->listAll();
+        } else if ($user->level == 2) {
+            $result = $this->dashboardService->listAllByPengelola();
         } else { // jika surveyor
             // $result = $this->dashboardService->listAllBySurveyor();
             $result = $this->dashboardService->listAll();

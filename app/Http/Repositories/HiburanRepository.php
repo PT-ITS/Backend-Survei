@@ -5,6 +5,7 @@ namespace App\Http\Repositories;
 use App\Models\Hiburan;
 use App\Models\Karyawan;
 use App\Models\KaryawanHiburan;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class HiburanRepository
@@ -96,20 +97,31 @@ class HiburanRepository
 
     public function updateHiburan($requestData, $id)
     {
+        DB::beginTransaction();
         try {
             $hiburan = $this->hiburanModel->find($id);
             if ($hiburan) {
                 $hiburan->update($requestData);
+
+                $dataUser = User::find($hiburan->pj_id);
+                $dataUser->email = $requestData['emailPj'];
+                $dataUser->password = bcrypt($requestData['passwordPj']);
+                $dataUser->save();
+
+                DB::commit();
                 return [
                     "statusCode" => 200,
                     "message" => 'update data hiburan success'
                 ];
             }
+
+            DB::rollBack();
             return [
                 "statusCode" => 404,
                 "message" => 'data hiburan tidak ditemukan'
             ];
         } catch (\Exception  $e) {
+            DB::rollBack();
             return [
                 "statusCode" => 401,
                 "message" => $e->getMessage()
