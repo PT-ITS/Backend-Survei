@@ -109,7 +109,5 @@ Route::group([
 });
 
 
-// test
-Route::post('import-hotel', [ImportDataController::class, 'importDataHotel']);
+// Log
 Route::get('/log', [DashboardController::class, 'log']);
-Route::get('/test/{id}', [DashboardController::class, 'dashboardUsaha']);
