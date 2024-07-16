@@ -41,6 +41,7 @@ Route::group([
     'middleware' => 'auth:api'
 ], function () {
     Route::get('get-data-dashboard', [DashboardController::class, 'getDataDashboard']);
+    Route::get('get-data-dashboard/{id}', [DashboardController::class, 'dashboardUsaha']);
     Route::get('list-all', [DashboardController::class, 'listAll']);
 });
 
