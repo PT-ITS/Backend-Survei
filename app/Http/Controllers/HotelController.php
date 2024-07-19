@@ -145,6 +145,7 @@ class HotelController extends Controller
             'wargaNegaraPj' => 'required',
             'surveyor_id' => 'required',
         ]);
+        $validateData['surveyor_id'] = auth()->user()->id;
 
         $result = $this->hotelService->updateDataHotel($validateData, $id);
         return response()->json(

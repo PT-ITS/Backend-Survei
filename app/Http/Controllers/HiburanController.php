@@ -161,6 +161,7 @@ class HiburanController extends Controller
             'wargaNegaraPj' => 'required',
             'surveyor_id' => 'required',
         ]);
+        $validateData['surveyor_id'] = auth()->user()->id;
 
         $result = $this->hiburanService->updateHiburan($validateData, $id);
         return response()->json(
