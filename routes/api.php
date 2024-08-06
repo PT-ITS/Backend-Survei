@@ -42,7 +42,9 @@ Route::group([
     'middleware' => 'auth:api'
 ], function () {
     Route::get('get-data-dashboard', [DashboardController::class, 'getDataDashboard']);
+    Route::get('get-data-dashboard/{id}', [DashboardController::class, 'dashboardUsaha']);
     Route::get('list-all', [DashboardController::class, 'listAll']);
+    Route::get('export', [DashboardController::class, 'export']);
 });
 
 // Hotel
@@ -109,9 +111,5 @@ Route::group([
 });
 
 
-// test
-Route::post('import-hotel', [ImportDataController::class, 'importDataHotel']);
+// Log
 Route::get('/log', [DashboardController::class, 'log']);
-Route::get('/test/{id}', [DashboardController::class, 'dashboardUsaha']);
-
-Route::get('/test-stream', [DataStreamController::class, 'streamData']);

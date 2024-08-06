@@ -163,6 +163,7 @@ class FnbController extends Controller
             'wargaNegaraPj' => 'required',
             'surveyor_id' => 'required',
         ]);
+        $validateData['surveyor_id'] = auth()->user()->id;
 
         $result = $this->fnbService->updateFnb($validateData, $id);
         return response()->json(
