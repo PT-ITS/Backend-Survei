@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\WisataExport;
 use App\Models\Hotel;
 use App\Models\Hiburan;
 use App\Models\Fnb;
@@ -11,6 +12,7 @@ use App\Models\KaryawanFnb;
 use Illuminate\Http\Request;
 use App\Http\Services\DashboardService;
 use App\Models\Karyawan;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DashboardController extends Controller
 {
@@ -70,6 +72,33 @@ class DashboardController extends Controller
             ],
             $result['statusCode']
         );
+    }
+
+    public function export()
+    {
+        $user = auth()->user();
+
+        if (!$user) {
+            return response()->json(
+                [
+                    'message' => 'Unauthorized',
+                    'data' => []
+                ],
+                401
+            );
+        }
+
+        $result = [];
+
+        if ($user->level == 1) {
+            $result = $this->dashboardService->listAll();
+        } else if ($user->level == 2) {
+            $result = $this->dashboardService->listAllByPengelola();
+        } else {
+            $result = $this->dashboardService->listAll();
+        }
+
+        return Excel::download(new WisataExport($result['data']), 'data_wisata_export.xlsx');
     }
 
     public function log()
