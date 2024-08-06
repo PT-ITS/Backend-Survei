@@ -40,7 +40,7 @@ class WisataSheetExport implements FromCollection, WithHeadings, WithMapping
 
     public function __construct(Collection $data, $sheetName)
     {
-        $this->data = $data;
+        $this->data = $data->filter(); // Ensure collection is not null
         $this->sheetName = $sheetName;
         $this->rowNumber = 1; // Initialize row number
     }
@@ -52,16 +52,30 @@ class WisataSheetExport implements FromCollection, WithHeadings, WithMapping
 
     public function headings(): array
     {
+        // Ensure collection is not empty
+        if ($this->data->isEmpty()) {
+            return [];
+        }
+
         // Get the first item to extract the keys (excluding 'id')
         $firstItem = $this->data->first();
+        if ($firstItem === null) {
+            return [];
+        }
+
         $keys = array_keys($firstItem->toArray());
         $keys = array_diff($keys, ['id']);
 
-        return array_merge(['no'], $keys);
+        return array_merge(['No'], $keys);
     }
 
     public function map($row): array
     {
+        // Handle null rows
+        if ($row === null) {
+            return array_merge([$this->rowNumber++], []);
+        }
+
         // Remove 'id' from the row
         $rowArray = $row->toArray();
         unset($rowArray['id']);
