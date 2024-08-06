@@ -49,6 +49,7 @@ class DashboardRepository
     public function listAll()
     {
         try {
+            // nib, nama usaha, alamat, penanggung jawab, no hp
             $hotelData = Hotel::get();
             $hiburanData = Hiburan::get();
             $fnbData = Fnb::get();

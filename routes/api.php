@@ -9,6 +9,7 @@ use App\Http\Controllers\HiburanController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\ImportDataController;
+use App\Http\Controllers\DataStreamController;
 
 Route::group([
     'prefix' => 'auth'
@@ -112,3 +113,5 @@ Route::group([
 Route::post('import-hotel', [ImportDataController::class, 'importDataHotel']);
 Route::get('/log', [DashboardController::class, 'log']);
 Route::get('/test/{id}', [DashboardController::class, 'dashboardUsaha']);
+
+Route::get('/test-stream', [DataStreamController::class, 'streamData']);
