@@ -23,6 +23,7 @@ Route::group([
         Route::post('refresh', [AuthController::class, 'refresh']);
         Route::get('me', [AuthController::class, 'me']);
         Route::get('list-pengguna', [AuthController::class, 'listPengguna']);
+        Route::get('list-pengelola', [AuthController::class, 'listPengelola']);
         Route::post('update/{id}', [AuthController::class, 'update']);
         Route::delete('delete/{id}', [AuthController::class, 'delete']);
 

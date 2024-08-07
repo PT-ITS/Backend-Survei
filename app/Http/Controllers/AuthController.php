@@ -128,10 +128,31 @@ class AuthController extends Controller
     public function listPengguna()
     {
         try {
-            $result = User::get();
+            $result = User::where('level', '0')
+                ->get();
             return response()->json(
                 [
                     'message' => 'data pengguna ditemukan',
+                    'data' => $result
+                ],
+                200
+            );
+        } catch (\Exception  $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+                'data' => null
+            ], 401);
+        }
+    }
+
+    public function listPengelola()
+    {
+        try {
+            $result = User::where('level', '2')
+                ->get();
+            return response()->json(
+                [
+                    'message' => 'data pengelola ditemukan',
                     'data' => $result
                 ],
                 200
