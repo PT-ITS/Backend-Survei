@@ -22,7 +22,7 @@ class CreateHotelsTable extends Migration
             $table->string('kamarStandart');
             $table->string('resiko');
             $table->string('skalaUsaha');
-            $table->string('alamat');
+            $table->text('alamat');
             $table->string('koordinat');
             $table->string('namaPj');
             $table->string('emailPj');
