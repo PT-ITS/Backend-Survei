@@ -107,9 +107,19 @@ class DashboardController extends Controller
             ->select('hotels.*', 'users.name as surveyor_name', 'users.email as surveyor_email')
             ->get();
 
+        $hiburans = Hotel::join('users', 'hiburans.surveyor_id', '=', 'users.id')
+            ->select('hiburans.*', 'users.name as surveyor_name', 'users.email as surveyor_email')
+            ->get();
+
+        $fn_b_s = Hotel::join('users', 'fn_b_s.surveyor_id', '=', 'users.id')
+            ->select('fn_b_s.*', 'users.name as surveyor_name', 'users.email as surveyor_email')
+            ->get();
+
         return response()->json([
-            'message' => 'Data hotel berhasil diambil.',
-            'data' => $hotels,
+            'message' => 'Data log berhasil diambil.',
+            'hotel' => $hotels,
+            'hiburan' => $hiburans,
+            'fnb' => $fn_b_s,
         ]);
     }
 
