@@ -107,11 +107,11 @@ class DashboardController extends Controller
             ->select('hotels.*', 'users.name as surveyor_name', 'users.email as surveyor_email')
             ->get();
 
-        $hiburans = Hotel::join('users', 'hiburans.surveyor_id', '=', 'users.id')
+        $hiburans = Hiburan::join('users', 'hiburans.surveyor_id', '=', 'users.id')
             ->select('hiburans.*', 'users.name as surveyor_name', 'users.email as surveyor_email')
             ->get();
 
-        $fn_b_s = Hotel::join('users', 'fn_b_s.surveyor_id', '=', 'users.id')
+        $fn_b_s = Fnb::join('users', 'fn_b_s.surveyor_id', '=', 'users.id')
             ->select('fn_b_s.*', 'users.name as surveyor_name', 'users.email as surveyor_email')
             ->get();
 
