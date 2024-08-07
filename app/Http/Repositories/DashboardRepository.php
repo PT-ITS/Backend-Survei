@@ -21,8 +21,8 @@ class DashboardRepository
             $karyawanS1 = Karyawan::where('pendidikanKaryawan', 'D3/S1/D4')->count();
             $karyawanS2 = Karyawan::where('pendidikanKaryawan', 'S2')->count();
             $karyawanS3 = Karyawan::where('pendidikanKaryawan', 'S3')->count();
-            $karyawanWni = Karyawan::where('pendidikanKaryawan', 'WNI')->count();
-            $karyawanWna = Karyawan::where('pendidikanKaryawan', 'WNA')->count();
+            $karyawanWni = Karyawan::where('wargaNegara', 'WNI')->count();
+            $karyawanWna = Karyawan::where('wargaNegara', 'WNA')->count();
 
             // Menghitung jumlah data hotel, hiburan, dan F&B
             $dataHotel = Hotel::count();

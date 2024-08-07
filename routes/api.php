@@ -103,6 +103,9 @@ Route::group([
         Route::get('list-karyawan-hotel/{id}', [KaryawanController::class, 'listKaryawanHotel']);
         Route::get('list-karyawan-hiburan/{id}', [KaryawanController::class, 'listKaryawanHiburan']);
         Route::get('list-karyawan-fnb/{id}', [KaryawanController::class, 'listKaryawanFnb']);
+        Route::post('import-karyawan-hotel/{id}', [KaryawanController::class, 'importKaryawanHotel']);
+        Route::post('import-karyawan-hiburan/{id}', [KaryawanController::class, 'importKaryawanHiburan']);
+        Route::post('import-karyawan-fnb/{id}', [KaryawanController::class, 'importKaryawanFnb']);
         Route::post('input-karyawan-hotel', [KaryawanController::class, 'inputDataKaryawanHotel']);
         Route::post('input-karyawan-hiburan', [KaryawanController::class, 'inputDataKaryawanHiburan']);
         Route::post('input-karyawan-fnb', [KaryawanController::class, 'inputDataKaryawanFnb']);
