@@ -9,6 +9,7 @@ use App\Http\Controllers\HiburanController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\ImportDataController;
+use App\Http\Controllers\DataStreamController;
 
 Route::group([
     'prefix' => 'auth'

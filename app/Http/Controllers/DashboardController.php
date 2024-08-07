@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\WisataExport;
 use App\Models\Hotel;
 use App\Models\Hiburan;
 use App\Models\Fnb;
@@ -11,8 +10,6 @@ use App\Models\KaryawanHiburan;
 use App\Models\KaryawanFnb;
 use Illuminate\Http\Request;
 use App\Http\Services\DashboardService;
-use App\Models\Karyawan;
-use Maatwebsite\Excel\Facades\Excel;
 
 class DashboardController extends Controller
 {
@@ -74,33 +71,6 @@ class DashboardController extends Controller
         );
     }
 
-    public function export()
-    {
-        $user = auth()->user();
-
-        if (!$user) {
-            return response()->json(
-                [
-                    'message' => 'Unauthorized',
-                    'data' => []
-                ],
-                401
-            );
-        }
-
-        $result = [];
-
-        if ($user->level == 1) {
-            $result = $this->dashboardService->listAll();
-        } else if ($user->level == 2) {
-            $result = $this->dashboardService->listAllByPengelola();
-        } else {
-            $result = $this->dashboardService->listAll();
-        }
-
-        return Excel::download(new WisataExport($result['data']), 'data_wisata_export.xlsx');
-    }
-
     public function log()
     {
         $hotels = Hotel::join('users', 'hotels.surveyor_id', '=', 'users.id')
@@ -121,42 +91,14 @@ class DashboardController extends Controller
 
         if ($dataHotel) {
             $dataKaryawan = KaryawanHotel::where('hotel_id', $dataHotel->id)->get();
-            // Mengambil ID karyawan dari hasil query di atas
-            $karyawanIds = $dataKaryawan->pluck('karyawan_id');
-
-            // Menghitung jumlah karyawan laki-laki dan perempuan
-            $dataKaryawanPria = Karyawan::whereIn('id', $karyawanIds)->where('jenisKelamin', '1')->count();
-            $dataKaryawanWanita = Karyawan::whereIn('id', $karyawanIds)->where('jenisKelamin', '0')->count();
-            $dataDashboard = [
-                "jumlahKaryawanPria" => $dataKaryawanPria,
-                "jumlahKaryawanWanita" => $dataKaryawanWanita,
-            ];
-            return response()->json(['message' => 'success', 'data' => $dataDashboard]);
-        } else if ($dataHiburan) {
+            return response()->json(['message' => 'success', 'data' => $dataKaryawan]);
+        }else if ($dataHiburan) {
             $dataKaryawan = KaryawanHiburan::where('hiburan_id', $dataHiburan->id)->get();
-            $karyawanIds = $dataKaryawan->pluck('karyawan_id');
-
-            // Menghitung jumlah karyawan laki-laki dan perempuan
-            $dataKaryawanPria = Karyawan::whereIn('id', $karyawanIds)->where('jenisKelamin', '1')->count();
-            $dataKaryawanWanita = Karyawan::whereIn('id', $karyawanIds)->where('jenisKelamin', '0')->count();
-            $dataDashboard = [
-                "jumlahKaryawanPria" => $dataKaryawanPria,
-                "jumlahKaryawanWanita" => $dataKaryawanWanita,
-            ];
-            return response()->json(['message' => 'success', 'data' => $dataDashboard]);
-        } else if ($dataFnb) {
+            return response()->json(['message' => 'success', 'data' => $dataKaryawan]);
+        }else if ($dataFnb){
             $dataKaryawan = KaryawanFnb::where('fnb_id', $dataFnb->id)->get();
-            $karyawanIds = $dataKaryawan->pluck('karyawan_id');
-
-            // Menghitung jumlah karyawan laki-laki dan perempuan
-            $dataKaryawanPria = Karyawan::whereIn('id', $karyawanIds)->where('jenisKelamin', '1')->count();
-            $dataKaryawanWanita = Karyawan::whereIn('id', $karyawanIds)->where('jenisKelamin', '0')->count();
-            $dataDashboard = [
-                "jumlahKaryawanPria" => $dataKaryawanPria,
-                "jumlahKaryawanWanita" => $dataKaryawanWanita,
-            ];
-            return response()->json(['message' => 'success', 'data' => $dataDashboard]);
-        } else {
+            return response()->json(['message' => 'success', 'data' => $dataKaryawan]);
+        }else {
             return response()->json(['message' => 'gagal']);
         }
     }

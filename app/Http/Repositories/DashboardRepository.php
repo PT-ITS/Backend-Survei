@@ -15,6 +15,14 @@ class DashboardRepository
             // Menghitung jumlah karyawan pria dan wanita
             $dataKaryawanPria = Karyawan::where('jenisKelamin', '1')->count();
             $dataKaryawanWanita = Karyawan::where('jenisKelamin', '0')->count();
+            $karyawanSd = Karyawan::where('pendidikanKaryawan', 'SD/MI')->count();
+            $karyawanSmp = Karyawan::where('pendidikanKaryawan', 'SMP/MTS')->count();
+            $karyawanSma = Karyawan::where('pendidikanKaryawan', 'SMA/SMK/MA')->count();
+            $karyawanS1 = Karyawan::where('pendidikanKaryawan', 'D3/S1/D4')->count();
+            $karyawanS2 = Karyawan::where('pendidikanKaryawan', 'S2')->count();
+            $karyawanS3 = Karyawan::where('pendidikanKaryawan', 'S3')->count();
+            $karyawanWni = Karyawan::where('pendidikanKaryawan', 'WNI')->count();
+            $karyawanWna = Karyawan::where('pendidikanKaryawan', 'WNA')->count();
 
             // Menghitung jumlah data hotel, hiburan, dan F&B
             $dataHotel = Hotel::count();
@@ -28,6 +36,14 @@ class DashboardRepository
                 "jumlahHotel" => $dataHotel,
                 "jumlahHiburan" => $dataHiburan,
                 "jumlahFnb" => $dataFnb,
+                "karyawanSd" => $karyawanSd,
+                "karyawanSmp" => $karyawanSmp,
+                "karyawanSma" => $karyawanSma,
+                "karyawanS1" => $karyawanS1,
+                "karyawanS2" => $karyawanS2,
+                "karyawanS3" => $karyawanS3,
+                "karyawanWni" => $karyawanWni,
+                "karyawanWna" => $karyawanWna,
             ];
 
             // Mengembalikan response sukses
@@ -46,9 +62,10 @@ class DashboardRepository
         }
     }
 
-    public function listAll()
+    public function export()
     {
         try {
+            // nib, nama usaha, alamat, penanggung jawab, no hp
             $hotelData = Hotel::get();
             $hiburanData = Hiburan::get();
             $fnbData = Fnb::get();
@@ -72,6 +89,56 @@ class DashboardRepository
             ];
         }
     }
+    public function listAll()
+    {
+        try {
+            // Mendapatkan data hotel dengan kolom yang diinginkan
+            $hotelData = Hotel::select([
+                'nib',
+                'namaHotel',
+                'alamat',
+                'namaPj',
+                'teleponPj'
+            ])->get();
+    
+            // Mendapatkan data hiburan dengan kolom yang diinginkan
+            $hiburanData = Hiburan::select([
+                'nib',
+                'namaHiburan',
+                'alamat',
+                'namaPj',
+                'teleponPj'
+            ])->get();
+    
+            // Mendapatkan data fnb dengan kolom yang diinginkan
+            $fnbData = Fnb::select([
+                'nib',
+                'namaFnb',
+                'alamat',
+                'namaPj',
+                'teleponPj'
+            ])->get();
+    
+            $allData = [
+                "hotel" => $hotelData,
+                "hiburan" => $hiburanData,
+                "fnb" => $fnbData
+            ];
+    
+            return [
+                "statusCode" => 200,
+                "data" => $allData,
+                "message" => 'Get semua data success'
+            ];
+        } catch (\Exception $e) {
+            return [
+                "statusCode" => 401,
+                "data" => [],
+                "message" => $e->getMessage()
+            ];
+        }
+    }
+    
 
     public function listAllBySurveyor()
     {
