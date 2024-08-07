@@ -19,7 +19,7 @@ class CreateFnBSTable extends Migration
             $table->string('namaFnb');
             $table->string('resiko');
             $table->string('skalaUsaha');
-            $table->string('alamat');
+            $table->text('alamat');
             $table->string('koordinat');
             $table->string('namaPj');
             $table->string('emailPj');
