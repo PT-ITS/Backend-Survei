@@ -18,9 +18,9 @@ class UserSeeder extends Seeder
     {
         // pengurus
         User::create([
-            'name' => 'admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('12345'),
+            'name' => 'disparekrafdki',
+            'email' => 'disparekrafdki@surveiwisatadki.com',
+            'password' => Hash::make('W1547a!&$1k'),
             'alamat' => 'test',
             'level' => '1',
             'status' => '1',
