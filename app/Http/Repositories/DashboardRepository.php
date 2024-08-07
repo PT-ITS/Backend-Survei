@@ -62,10 +62,9 @@ class DashboardRepository
         }
     }
 
-    public function export()
+    public function exportAll()
     {
         try {
-            // nib, nama usaha, alamat, penanggung jawab, no hp
             $hotelData = Hotel::get();
             $hiburanData = Hiburan::get();
             $fnbData = Fnb::get();
@@ -94,37 +93,40 @@ class DashboardRepository
         try {
             // Mendapatkan data hotel dengan kolom yang diinginkan
             $hotelData = Hotel::select([
+                'id',
                 'nib',
                 'namaHotel',
                 'alamat',
                 'namaPj',
                 'teleponPj'
             ])->get();
-    
+
             // Mendapatkan data hiburan dengan kolom yang diinginkan
             $hiburanData = Hiburan::select([
+                'id',
                 'nib',
                 'namaHiburan',
                 'alamat',
                 'namaPj',
                 'teleponPj'
             ])->get();
-    
+
             // Mendapatkan data fnb dengan kolom yang diinginkan
             $fnbData = Fnb::select([
+                'id',
                 'nib',
                 'namaFnb',
                 'alamat',
                 'namaPj',
                 'teleponPj'
             ])->get();
-    
+
             $allData = [
                 "hotel" => $hotelData,
                 "hiburan" => $hiburanData,
                 "fnb" => $fnbData
             ];
-    
+
             return [
                 "statusCode" => 200,
                 "data" => $allData,
@@ -138,7 +140,7 @@ class DashboardRepository
             ];
         }
     }
-    
+
 
     public function listAllBySurveyor()
     {

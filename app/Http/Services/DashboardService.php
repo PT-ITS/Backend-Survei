@@ -26,6 +26,19 @@ class DashboardService
         }
     }
 
+    public function exportAll()
+    {
+        try {
+            return $this->dashboardRepository->exportAll();
+        } catch (\Exception $e) {
+            return [
+                "statusCode" => 401,
+                "data" => [],
+                "message" => $e->getMessage()
+            ];
+        }
+    }
+
     public function listAll()
     {
         try {
