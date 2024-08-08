@@ -9,7 +9,7 @@ use App\Http\Controllers\HiburanController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\ImportDataController;
-use App\Http\Controllers\DataStreamController;
+use App\Http\Controllers\RekapitulasiController;
 
 Route::group([
     'prefix' => 'auth'
@@ -117,3 +117,4 @@ Route::group([
 
 // Log
 Route::get('/log', [DashboardController::class, 'log']);
+Route::get('/rekapitulasi', [RekapitulasiController::class, 'rekapitulasi']);
