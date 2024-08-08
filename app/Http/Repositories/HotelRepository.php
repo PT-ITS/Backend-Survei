@@ -151,6 +151,9 @@ class HotelRepository
                 // Delete related karyawan entries
                 DB::table('karyawans')->whereIn('id', $relatedKaryawanIds)->delete();
 
+                // Delete user
+                User::where('id', $hotel->pj_id)->delete();
+
                 // Delete the hotel
                 $hotel->delete();
                 return [

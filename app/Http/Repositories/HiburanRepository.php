@@ -142,6 +142,9 @@ class HiburanRepository
                 // Delete related karyawan entries
                 DB::table('karyawans')->whereIn('id', $relatedKaryawanIds)->delete();
 
+                // Delete user
+                User::where('id', $hiburan->pj_id)->delete();
+
                 $hiburan->delete();
                 return [
                     "statusCode" => 200,

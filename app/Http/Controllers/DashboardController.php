@@ -137,9 +137,25 @@ class DashboardController extends Controller
             // Menghitung jumlah karyawan laki-laki dan perempuan
             $dataKaryawanPria = Karyawan::whereIn('id', $karyawanIds)->where('jenisKelamin', '1')->count();
             $dataKaryawanWanita = Karyawan::whereIn('id', $karyawanIds)->where('jenisKelamin', '0')->count();
+            $karyawanSd = Karyawan::whereIn('id', $karyawanIds)->where('pendidikanKaryawan', 'SD/MI')->count();
+            $karyawanSmp = Karyawan::whereIn('id', $karyawanIds)->where('pendidikanKaryawan', 'SMP/MTS')->count();
+            $karyawanSma = Karyawan::whereIn('id', $karyawanIds)->where('pendidikanKaryawan', 'SMA/SMK/MA')->count();
+            $karyawanS1 = Karyawan::whereIn('id', $karyawanIds)->where('pendidikanKaryawan', 'D3/S1/D4')->count();
+            $karyawanS2 = Karyawan::whereIn('id', $karyawanIds)->where('pendidikanKaryawan', 'S2')->count();
+            $karyawanS3 = Karyawan::whereIn('id', $karyawanIds)->where('pendidikanKaryawan', 'S3')->count();
+            $karyawanWni = Karyawan::whereIn('id', $karyawanIds)->where('wargaNegara', 'WNI')->count();
+            $karyawanWna = Karyawan::whereIn('id', $karyawanIds)->where('wargaNegara', 'WNA')->count();
             $dataDashboard = [
                 "jumlahKaryawanPria" => $dataKaryawanPria,
                 "jumlahKaryawanWanita" => $dataKaryawanWanita,
+                "karyawanSd" => $karyawanSd,
+                "karyawanSmp" => $karyawanSmp,
+                "karyawanSma" => $karyawanSma,
+                "karyawanS1" => $karyawanS1,
+                "karyawanS2" => $karyawanS2,
+                "karyawanS3" => $karyawanS3,
+                "karyawanWni" => $karyawanWni,
+                "karyawanWna" => $karyawanWna,
             ];
             return response()->json(['message' => 'success', 'data' => $dataDashboard]);
         } else if ($dataHiburan) {
@@ -149,9 +165,25 @@ class DashboardController extends Controller
             // Menghitung jumlah karyawan laki-laki dan perempuan
             $dataKaryawanPria = Karyawan::whereIn('id', $karyawanIds)->where('jenisKelamin', '1')->count();
             $dataKaryawanWanita = Karyawan::whereIn('id', $karyawanIds)->where('jenisKelamin', '0')->count();
+            $karyawanSd = Karyawan::whereIn('id', $karyawanIds)->where('pendidikanKaryawan', 'SD/MI')->count();
+            $karyawanSmp = Karyawan::whereIn('id', $karyawanIds)->where('pendidikanKaryawan', 'SMP/MTS')->count();
+            $karyawanSma = Karyawan::whereIn('id', $karyawanIds)->where('pendidikanKaryawan', 'SMA/SMK/MA')->count();
+            $karyawanS1 = Karyawan::whereIn('id', $karyawanIds)->where('pendidikanKaryawan', 'D3/S1/D4')->count();
+            $karyawanS2 = Karyawan::whereIn('id', $karyawanIds)->where('pendidikanKaryawan', 'S2')->count();
+            $karyawanS3 = Karyawan::whereIn('id', $karyawanIds)->where('pendidikanKaryawan', 'S3')->count();
+            $karyawanWni = Karyawan::whereIn('id', $karyawanIds)->where('wargaNegara', 'WNI')->count();
+            $karyawanWna = Karyawan::whereIn('id', $karyawanIds)->where('wargaNegara', 'WNA')->count();
             $dataDashboard = [
                 "jumlahKaryawanPria" => $dataKaryawanPria,
                 "jumlahKaryawanWanita" => $dataKaryawanWanita,
+                "karyawanSd" => $karyawanSd,
+                "karyawanSmp" => $karyawanSmp,
+                "karyawanSma" => $karyawanSma,
+                "karyawanS1" => $karyawanS1,
+                "karyawanS2" => $karyawanS2,
+                "karyawanS3" => $karyawanS3,
+                "karyawanWni" => $karyawanWni,
+                "karyawanWna" => $karyawanWna,
             ];
             return response()->json(['message' => 'success', 'data' => $dataDashboard]);
         } else if ($dataFnb) {
@@ -161,9 +193,25 @@ class DashboardController extends Controller
             // Menghitung jumlah karyawan laki-laki dan perempuan
             $dataKaryawanPria = Karyawan::whereIn('id', $karyawanIds)->where('jenisKelamin', '1')->count();
             $dataKaryawanWanita = Karyawan::whereIn('id', $karyawanIds)->where('jenisKelamin', '0')->count();
+            $karyawanSd = Karyawan::whereIn('id', $karyawanIds)->where('pendidikanKaryawan', 'SD/MI')->count();
+            $karyawanSmp = Karyawan::whereIn('id', $karyawanIds)->where('pendidikanKaryawan', 'SMP/MTS')->count();
+            $karyawanSma = Karyawan::whereIn('id', $karyawanIds)->where('pendidikanKaryawan', 'SMA/SMK/MA')->count();
+            $karyawanS1 = Karyawan::whereIn('id', $karyawanIds)->where('pendidikanKaryawan', 'D3/S1/D4')->count();
+            $karyawanS2 = Karyawan::whereIn('id', $karyawanIds)->where('pendidikanKaryawan', 'S2')->count();
+            $karyawanS3 = Karyawan::whereIn('id', $karyawanIds)->where('pendidikanKaryawan', 'S3')->count();
+            $karyawanWni = Karyawan::whereIn('id', $karyawanIds)->where('wargaNegara', 'WNI')->count();
+            $karyawanWna = Karyawan::whereIn('id', $karyawanIds)->where('wargaNegara', 'WNA')->count();
             $dataDashboard = [
                 "jumlahKaryawanPria" => $dataKaryawanPria,
                 "jumlahKaryawanWanita" => $dataKaryawanWanita,
+                "karyawanSd" => $karyawanSd,
+                "karyawanSmp" => $karyawanSmp,
+                "karyawanSma" => $karyawanSma,
+                "karyawanS1" => $karyawanS1,
+                "karyawanS2" => $karyawanS2,
+                "karyawanS3" => $karyawanS3,
+                "karyawanWni" => $karyawanWni,
+                "karyawanWna" => $karyawanWna,
             ];
             return response()->json(['message' => 'success', 'data' => $dataDashboard]);
         } else {
