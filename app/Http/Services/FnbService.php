@@ -66,6 +66,19 @@ class FnbService
         }
     }
 
+    public function validateFnb($id)
+    {
+        try {
+            return $this->fnbRepository->validateFnb($id);
+        } catch (\Exception $e) {
+            return [
+                "statusCode" => 401,
+                "data" => [],
+                "message" => $e->getMessage()
+            ];
+        }
+    }
+
     public function deleteFnb($id)
     {
         try {

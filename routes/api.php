@@ -60,6 +60,7 @@ Route::group([
         Route::post('input-hotel', [HotelController::class, 'inputDataHotelAndKaryawan']);
         Route::post('update-hotel/{id}', [HotelController::class, 'updateDataHotel']);
         Route::delete('delete-hotel/{id}', [HotelController::class, 'deleteDataHotel']);
+        Route::post('validate-hotel/{id}', [HotelController::class, 'validateDataHotel']);
     });
 });
 
@@ -75,6 +76,7 @@ Route::group([
         Route::post('input-hiburan', [HiburanController::class, 'inputHiburanAndKaryawan']);
         Route::post('update-hiburan/{id}', [HiburanController::class, 'updateHiburan']);
         Route::delete('delete-hiburan/{id}', [HiburanController::class, 'deleteHiburan']);
+        Route::post('validate-hiburan/{id}', [HiburanController::class, 'validateHiburan']);
     });
 });
 
@@ -90,6 +92,7 @@ Route::group([
         Route::post('input-fnb', [FnbController::class, 'inputFnbAndKaryawan']);
         Route::post('update-fnb/{id}', [FnbController::class, 'updateFnb']);
         Route::delete('delete-fnb/{id}', [FnbController::class, 'deleteFnb']);
+        Route::post('validate-fnb/{id}', [FnbController::class, 'validateFnb']);
     });
 });
 

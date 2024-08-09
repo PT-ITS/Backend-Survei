@@ -23,10 +23,11 @@ class RekapitulasiController extends Controller
                 'namaHotel',
                 'alamat',
                 'namaPj',
-                'teleponPj'
+                'teleponPj',
+                'status',
             ])
-            ->where('namaHotel', 'LIKE', '%' . $searchQuery . '%')
-            ->paginate($perPage, ['*'], 'hotel_page');
+                ->where('namaHotel', 'LIKE', '%' . $searchQuery . '%')
+                ->paginate($perPage, ['*'], 'hotel_page');
 
             // Mendapatkan data hiburan dengan kolom yang diinginkan dan paginasi
             $hiburanData = Hiburan::select([
@@ -35,10 +36,11 @@ class RekapitulasiController extends Controller
                 'namaHiburan',
                 'alamat',
                 'namaPj',
-                'teleponPj'
+                'teleponPj',
+                'status',
             ])
-            ->where('namaHiburan', 'LIKE', '%' . $searchQuery . '%')
-            ->paginate($perPage, ['*'], 'hiburan_page');
+                ->where('namaHiburan', 'LIKE', '%' . $searchQuery . '%')
+                ->paginate($perPage, ['*'], 'hiburan_page');
 
             // Mendapatkan data fnb dengan kolom yang diinginkan dan paginasi
             $fnbData = Fnb::select([
@@ -47,10 +49,11 @@ class RekapitulasiController extends Controller
                 'namaFnb',
                 'alamat',
                 'namaPj',
-                'teleponPj'
+                'teleponPj',
+                'status',
             ])
-            ->where('namaFnb', 'LIKE', '%' . $searchQuery . '%')
-            ->paginate($perPage, ['*'], 'fnb_page');
+                ->where('namaFnb', 'LIKE', '%' . $searchQuery . '%')
+                ->paginate($perPage, ['*'], 'fnb_page');
 
             $allData = [
                 "hotel" => $hotelData,

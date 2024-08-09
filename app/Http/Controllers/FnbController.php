@@ -174,6 +174,17 @@ class FnbController extends Controller
         );
     }
 
+    public function validateFnb($id)
+    {
+        $result = $this->fnbService->validateFnb($id);
+        return response()->json(
+            [
+                'message' => $result['message']
+            ],
+            $result['statusCode']
+        );
+    }
+
     public function deleteFnb($id)
     {
         $result = $this->fnbService->deleteFnb($id);

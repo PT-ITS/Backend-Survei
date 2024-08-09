@@ -66,6 +66,19 @@ class HiburanService
         }
     }
 
+    public function validateHiburan($id)
+    {
+        try {
+            return $this->hiburanRepository->validateHiburan($id);
+        } catch (\Exception $e) {
+            return [
+                "statusCode" => 401,
+                "data" => [],
+                "message" => $e->getMessage()
+            ];
+        }
+    }
+
     public function deleteHiburan($id)
     {
         try {

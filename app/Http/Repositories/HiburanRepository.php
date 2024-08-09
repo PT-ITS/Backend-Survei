@@ -129,6 +129,36 @@ class HiburanRepository
         }
     }
 
+    public function validateHiburan($id)
+    {
+        DB::beginTransaction();
+        try {
+            $hiburan = $this->hiburanModel->find($id);
+            if ($hiburan) {
+                $hiburan->status = '1';
+                $hiburan->save();
+
+                DB::commit();
+                return [
+                    "statusCode" => 200,
+                    "message" => 'validate data hiburan success'
+                ];
+            }
+
+            DB::rollBack();
+            return [
+                "statusCode" => 404,
+                "message" => 'data hiburan tidak ditemukan'
+            ];
+        } catch (\Exception  $e) {
+            DB::rollBack();
+            return [
+                "statusCode" => 401,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
+
     public function deleteHiburan($id)
     {
         try {
