@@ -156,6 +156,17 @@ class HotelController extends Controller
         );
     }
 
+    public function validateDataHotel($id)
+    {
+        $result = $this->hotelService->validateDataHotel($id);
+        return response()->json(
+            [
+                'message' => $result['message']
+            ],
+            $result['statusCode']
+        );
+    }
+
     public function deleteDataHotel($id)
     {
         $result = $this->hotelService->deleteDataHotel($id);

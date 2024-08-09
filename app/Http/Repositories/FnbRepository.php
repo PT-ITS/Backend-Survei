@@ -128,6 +128,36 @@ class FnbRepository
         }
     }
 
+    public function validateFnb($id)
+    {
+        DB::beginTransaction();
+        try {
+            $fnb = $this->fnbModel->find($id);
+            if ($fnb) {
+                $fnb->status = '1';
+                $fnb->save();
+
+                DB::commit();
+                return [
+                    "statusCode" => 200,
+                    "message" => 'validate data fnb success'
+                ];
+            }
+
+            DB::rollBack();
+            return [
+                "statusCode" => 404,
+                "message" => 'data fnb tidak ditemukan'
+            ];
+        } catch (\Exception  $e) {
+            DB::rollBack();
+            return [
+                "statusCode" => 401,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
+
     public function deleteFnb($id)
     {
         try {

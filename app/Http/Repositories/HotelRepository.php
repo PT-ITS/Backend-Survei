@@ -138,6 +138,36 @@ class HotelRepository
         }
     }
 
+    public function validateDataHotel($id)
+    {
+        DB::beginTransaction();
+        try {
+            $dataHotel = $this->hotelModel->find($id);
+            if ($dataHotel) {
+                $dataHotel->status = '1';
+                $dataHotel->save();
+
+                DB::commit();
+                return [
+                    "statusCode" => 200,
+                    "message" => 'validate data hotel success'
+                ];
+            }
+
+            DB::rollBack();
+            return [
+                "statusCode" => 404,
+                "message" => 'data hotel tidak ditemukan'
+            ];
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return [
+                "statusCode" => 401,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
+
     public function deleteDataHotel($id)
     {
         try {

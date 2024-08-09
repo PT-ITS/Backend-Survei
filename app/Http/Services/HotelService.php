@@ -63,6 +63,18 @@ class HotelService
         }
     }
 
+    public function validateDataHotel($id)
+    {
+        try {
+            return $this->hotelRepository->validateDataHotel($id);
+        } catch (\Exception $e) {
+            return [
+                "statusCode" => 401,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
+
     public function deleteDataHotel($id)
     {
         try {

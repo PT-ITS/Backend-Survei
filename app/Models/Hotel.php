@@ -26,6 +26,7 @@ class Hotel extends Model
         'pendidikanPj',
         'teleponPj',
         'wargaNegaraPj',
+        'status',
         'surveyor_id',
         'pj_id',
         'created_at'

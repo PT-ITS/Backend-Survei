@@ -28,6 +28,10 @@ class CreateFnBSTable extends Migration
             $table->string('pendidikanPj');
             $table->string('teleponPj');
             $table->string('wargaNegaraPj');
+            $table->enum('status', [
+                '0', // belum tervalidasi
+                '1' // tervalidasi
+            ])->default('0');
             $table->foreignId('surveyor_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('pj_id')->nullable()->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

@@ -98,7 +98,8 @@ class DashboardRepository
                 'namaHotel',
                 'alamat',
                 'namaPj',
-                'teleponPj'
+                'teleponPj',
+                'status',
             ])->get();
 
             // Mendapatkan data hiburan dengan kolom yang diinginkan
@@ -108,7 +109,8 @@ class DashboardRepository
                 'namaHiburan',
                 'alamat',
                 'namaPj',
-                'teleponPj'
+                'teleponPj',
+                'status',
             ])->get();
 
             // Mendapatkan data fnb dengan kolom yang diinginkan
@@ -118,7 +120,8 @@ class DashboardRepository
                 'namaFnb',
                 'alamat',
                 'namaPj',
-                'teleponPj'
+                'teleponPj',
+                'status',
             ])->get();
 
             $allData = [

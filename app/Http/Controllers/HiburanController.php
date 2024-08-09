@@ -172,6 +172,17 @@ class HiburanController extends Controller
         );
     }
 
+    public function validateHiburan($id)
+    {
+        $result = $this->hiburanService->validateHiburan($id);
+        return response()->json(
+            [
+                'message' => $result['message']
+            ],
+            $result['statusCode']
+        );
+    }
+
     public function deleteHiburan($id)
     {
         $result = $this->hiburanService->deleteHiburan($id);
