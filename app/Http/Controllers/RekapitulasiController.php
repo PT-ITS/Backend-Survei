@@ -16,7 +16,7 @@ class RekapitulasiController extends Controller
             $perPage = $request->input('per_page', 15);
             $searchQuery = $request->input('search', '');
 
-            // Mendapatkan data hotel dengan kolom yang diinginkan dan paginasi
+            // Mendapatkan data hotel dengan pencarian di semua field yang dipanggil dan paginasi
             $hotelData = Hotel::select([
                 'id',
                 'nib',
@@ -25,10 +25,16 @@ class RekapitulasiController extends Controller
                 'namaPj',
                 'teleponPj'
             ])
-            ->where('namaHotel', 'LIKE', '%' . $searchQuery . '%')
+            ->where(function($query) use ($searchQuery) {
+                $query->where('nib', 'LIKE', '%' . $searchQuery . '%')
+                      ->orWhere('namaHotel', 'LIKE', '%' . $searchQuery . '%')
+                      ->orWhere('alamat', 'LIKE', '%' . $searchQuery . '%')
+                      ->orWhere('namaPj', 'LIKE', '%' . $searchQuery . '%')
+                      ->orWhere('teleponPj', 'LIKE', '%' . $searchQuery . '%');
+            })
             ->paginate($perPage, ['*'], 'hotel_page');
 
-            // Mendapatkan data hiburan dengan kolom yang diinginkan dan paginasi
+            // Mendapatkan data hiburan dengan pencarian di semua field yang dipanggil dan paginasi
             $hiburanData = Hiburan::select([
                 'id',
                 'nib',
@@ -37,10 +43,16 @@ class RekapitulasiController extends Controller
                 'namaPj',
                 'teleponPj'
             ])
-            ->where('namaHiburan', 'LIKE', '%' . $searchQuery . '%')
+            ->where(function($query) use ($searchQuery) {
+                $query->where('nib', 'LIKE', '%' . $searchQuery . '%')
+                      ->orWhere('namaHiburan', 'LIKE', '%' . $searchQuery . '%')
+                      ->orWhere('alamat', 'LIKE', '%' . $searchQuery . '%')
+                      ->orWhere('namaPj', 'LIKE', '%' . $searchQuery . '%')
+                      ->orWhere('teleponPj', 'LIKE', '%' . $searchQuery . '%');
+            })
             ->paginate($perPage, ['*'], 'hiburan_page');
 
-            // Mendapatkan data fnb dengan kolom yang diinginkan dan paginasi
+            // Mendapatkan data fnb dengan pencarian di semua field yang dipanggil dan paginasi
             $fnbData = Fnb::select([
                 'id',
                 'nib',
@@ -49,7 +61,13 @@ class RekapitulasiController extends Controller
                 'namaPj',
                 'teleponPj'
             ])
-            ->where('namaFnb', 'LIKE', '%' . $searchQuery . '%')
+            ->where(function($query) use ($searchQuery) {
+                $query->where('nib', 'LIKE', '%' . $searchQuery . '%')
+                      ->orWhere('namaFnb', 'LIKE', '%' . $searchQuery . '%')
+                      ->orWhere('alamat', 'LIKE', '%' . $searchQuery . '%')
+                      ->orWhere('namaPj', 'LIKE', '%' . $searchQuery . '%')
+                      ->orWhere('teleponPj', 'LIKE', '%' . $searchQuery . '%');
+            })
             ->paginate($perPage, ['*'], 'fnb_page');
 
             $allData = [
