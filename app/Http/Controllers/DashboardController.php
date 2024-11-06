@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use App\Http\Services\DashboardService;
 use App\Models\Karyawan;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Validator;
+use App\Exports\HiburanExport;
 
 class DashboardController extends Controller
 {
@@ -21,6 +23,17 @@ class DashboardController extends Controller
     public function __construct(DashboardService $dashboardService)
     {
         $this->dashboardService = $dashboardService;
+    }
+
+    public function exportByDate(Request $request)
+    {
+        $request->validate([
+            'date' => 'required|date',
+        ]);
+
+        $date = $request->input('date');
+
+        return Excel::download(new HiburanExport($date), 'hiburan_'.$date.'.xlsx');
     }
 
     public function getDataDashboard()
