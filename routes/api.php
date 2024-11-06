@@ -121,4 +121,4 @@ Route::group([
 // Log
 Route::get('/log', [DashboardController::class, 'log']);
 Route::get('/rekapitulasi', [RekapitulasiController::class, 'rekapitulasi']);
-Route::post('/report', [DashboardController::class, 'exportByDate']);
+Route::get('/report', [DashboardController::class, 'exportByDate']);
