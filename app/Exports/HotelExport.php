@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\Hiburan;
+use App\Models\Hotel;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Illuminate\Support\Carbon;
@@ -18,7 +18,7 @@ class HotelExport implements FromCollection, WithHeadings
 
     public function collection()
     {
-        return Hiburan::whereDate('created_at', $this->date)->get([
+        return Hotel::whereDate('created_at', $this->date)->get([
             'nib',
             'namaHotel',
             'bintangHotel',
