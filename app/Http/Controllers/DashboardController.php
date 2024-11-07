@@ -15,6 +15,7 @@ use App\Models\Karyawan;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 use App\Exports\HiburanExport;
+use App\Exports\HotelExport;
 
 class DashboardController extends Controller
 {
@@ -34,6 +35,17 @@ class DashboardController extends Controller
         $date = $request->input('date');
 
         return Excel::download(new HiburanExport($date), 'hiburan_'.$date.'.xlsx');
+    }
+
+    public function exportHotelByDate(Request $request)
+    {
+        $request->validate([
+            'date' => 'required|date',
+        ]);
+
+        $date = $request->input('date');
+
+        return Excel::download(new HotelExport($date), 'hotel_'.$date.'.xlsx');
     }
 
     public function getDataDashboard()
