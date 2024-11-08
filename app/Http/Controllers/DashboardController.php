@@ -16,6 +16,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 use App\Exports\HiburanExport;
 use App\Exports\HotelExport;
+use App\Exports\FnbExport;
 
 class DashboardController extends Controller
 {
@@ -46,6 +47,17 @@ class DashboardController extends Controller
         $date = $request->input('date');
 
         return Excel::download(new HotelExport($date), 'hotel_'.$date.'.xlsx');
+    }
+
+    public function exportFnbByDate(Request $request)
+    {
+        $request->validate([
+            'date' => 'required|date',
+        ]);
+
+        $date = $request->input('date');
+
+        return Excel::download(new FnbExport($date), 'fnb_'.$date.'.xlsx');
     }
 
     public function getDataDashboard()
