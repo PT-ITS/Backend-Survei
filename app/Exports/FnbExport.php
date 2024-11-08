@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\FnB;
+use App\Models\Fnb;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Illuminate\Support\Carbon;
@@ -18,7 +18,7 @@ class FnbExport implements FromCollection, WithHeadings
 
     public function collection()
     {
-        return FnB::whereDate('created_at', $this->date)->get([
+        return Fnb::whereDate('created_at', $this->date)->get([
             'nib',
             'namaFnb',
             'resiko',
