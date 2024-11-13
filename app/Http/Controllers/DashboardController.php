@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Exports\HiburanExport;
 use App\Exports\HotelExport;
 use App\Exports\FnbExport;
+use App\Exports\KaryawanExport;
 
 class DashboardController extends Controller
 {
@@ -35,7 +36,7 @@ class DashboardController extends Controller
 
         $date = $request->input('date');
 
-        return Excel::download(new HiburanExport($date), 'hiburan_'.$date.'.xlsx');
+        return Excel::download(new HiburanExport($date), 'hiburan_' . $date . '.xlsx');
     }
 
     public function exportHotelByDate(Request $request)
@@ -46,7 +47,7 @@ class DashboardController extends Controller
 
         $date = $request->input('date');
 
-        return Excel::download(new HotelExport($date), 'hotel_'.$date.'.xlsx');
+        return Excel::download(new HotelExport($date), 'hotel_' . $date . '.xlsx');
     }
 
     public function exportFnbByDate(Request $request)
@@ -57,7 +58,7 @@ class DashboardController extends Controller
 
         $date = $request->input('date');
 
-        return Excel::download(new FnbExport($date), 'fnb_'.$date.'.xlsx');
+        return Excel::download(new FnbExport($date), 'fnb_' . $date . '.xlsx');
     }
 
     public function getDataDashboard()
@@ -136,6 +137,12 @@ class DashboardController extends Controller
         }
 
         return Excel::download(new WisataExport($result['data']), 'data_wisata_export.xlsx');
+    }
+
+    public function exportKaryawan()
+    {
+        // Export the Karyawan data
+        return Excel::download(new KaryawanExport, 'karyawan_data.xlsx');
     }
 
     public function log()

@@ -47,6 +47,7 @@ Route::group([
     Route::get('list-all', [DashboardController::class, 'listAll']);
     Route::get('export', [DashboardController::class, 'export']);
 });
+Route::get('export-karyawan', [DashboardController::class, 'exportKaryawan']);
 
 // Hotel
 Route::group([
