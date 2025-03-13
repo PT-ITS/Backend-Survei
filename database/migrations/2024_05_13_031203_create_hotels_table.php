@@ -17,6 +17,7 @@ class CreateHotelsTable extends Migration
             $table->id();
             $table->string('nib');
             $table->string('namaHotel');
+            $table->string('namaBadanUsaha')->nullable();
             $table->string('bintangHotel');
             $table->string('kamarVip');
             $table->string('kamarStandart');

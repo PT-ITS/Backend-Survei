@@ -12,6 +12,7 @@ class FnB extends Model
     protected $fillable = [
         'nib',
         'namaFnb',
+        'namaBadanUsaha',
         'resiko',
         'skalaUsaha',
         'alamat',

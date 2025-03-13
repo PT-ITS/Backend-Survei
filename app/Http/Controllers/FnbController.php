@@ -52,6 +52,7 @@ class FnbController extends Controller
             $validateFnbData = $request->validate([
                 'fnb.nib' => 'required',
                 'fnb.namaFnb' => 'required',
+                'fnb.namaBadanUsaha' => 'required',
                 'fnb.resiko' => 'required',
                 'fnb.skalaUsaha' => 'required',
                 'fnb.alamat' => 'required',
@@ -149,7 +150,8 @@ class FnbController extends Controller
     {
         $validateData = $request->validate([
             'nib' => 'required',
-            'namaFnb' => 'required',
+            'namaFnb' => 'required', 
+            'namaBadanUsaha' => 'required', 
             'resiko' => 'required',
             'skalaUsaha' => 'required',
             'alamat' => 'required',

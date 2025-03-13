@@ -52,6 +52,7 @@ class HiburanController extends Controller
             $validateHiburanData = $request->validate([
                 'hiburan.nib' => 'required',
                 'hiburan.namaHiburan' => 'required',
+                'hiburan.namaBadanUsaha' => 'required',
                 'hiburan.resiko' => 'required',
                 'hiburan.skalaUsaha' => 'required',
                 'hiburan.alamat' => 'required',
@@ -148,6 +149,7 @@ class HiburanController extends Controller
         $validateData = $request->validate([
             'nib' => 'required',
             'namaHiburan' => 'required',
+            'namaBadanUsaha' => 'required',
             'resiko' => 'required',
             'skalaUsaha' => 'required',
             'alamat' => 'required',

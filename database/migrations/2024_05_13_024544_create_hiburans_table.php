@@ -17,6 +17,7 @@ class CreateHiburansTable extends Migration
             $table->id();
             $table->string('nib');
             $table->string('namaHiburan');
+            $table->string('namaBadanUsaha')->nullable();
             $table->string('resiko');
             $table->string('skalaUsaha');
             $table->text('alamat');

@@ -17,6 +17,7 @@ class CreateFnBSTable extends Migration
             $table->id();
             $table->string('nib');
             $table->string('namaFnb');
+            $table->string('namaBadanUsaha')->nullable();
             $table->string('resiko');
             $table->string('skalaUsaha');
             $table->text('alamat');

@@ -12,6 +12,7 @@ class Hiburan extends Model
     protected $fillable = [
         'nib',
         'namaHiburan',
+        'namaBadanUsaha',
         'resiko',
         'skalaUsaha',
         'alamat',

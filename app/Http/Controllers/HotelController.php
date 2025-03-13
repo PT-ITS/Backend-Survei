@@ -49,6 +49,7 @@ class HotelController extends Controller
         $validateHotelData = $request->validate([
             'hotel.nib' => 'required',
             'hotel.namaHotel' => 'required',
+            'hotel.namaBadanUsaha' => 'required',
             'hotel.bintangHotel' => 'required',
             'hotel.kamarVip' => 'required',
             'hotel.kamarStandart' => 'required',
@@ -129,6 +130,7 @@ class HotelController extends Controller
         $validateData = $request->validate([
             'nib' => 'required',
             'namaHotel' => 'required',
+            'namaBadanUsaha' => 'required',
             'resiko' => 'required',
             'skalaUsaha' => 'required',
             'bintangHotel' => 'required',

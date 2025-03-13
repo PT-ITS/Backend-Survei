@@ -12,6 +12,7 @@ class Hotel extends Model
     protected $fillable = [
         'nib',
         'namaHotel',
+        'namaBadanUsaha',
         'bintangHotel',
         'kamarVip',
         'kamarStandart',
